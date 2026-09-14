@@ -137,6 +137,7 @@
   <main>
 
     <!-- ================= KIDS INTERACTIVE PLAYZONE (SÂN CHƠI TRỰC TIẾP CHO BÉ) ================= -->
+        <!-- ================= KIDS INTERACTIVE PLAYZONE (SÂN CHƠI TRỰC TIẾP CHO BÉ) ================= -->
     <section id="kids-playzone" class="py-12 md:py-20 bg-gradient-to-b from-amber-100/70 via-orange-50 to-emerald-50/60 relative overflow-hidden border-y-4 border-amber-300/80">
       
       <!-- Playful background bubbles -->
@@ -158,7 +159,7 @@
           </h2>
 
           <p class="text-slate-600 text-sm sm:text-base">
-            Hình ảnh hoạt họa sắc nét, nút bấm siêu to, phản hồi <strong>âm thanh chân thực (Web Audio)</strong> và giọng đọc tiếng Việt khen ngợi giúp bé hứng thú tương tác.
+            Hình ảnh hoạt họa sắc nét, nút bấm siêu to, <strong>âm thanh chân thực (Web Audio)</strong> và giọng lồng tiếng Việt chuẩn ấm áp giúp bé vừa giải trí vừa phát triển não bộ vượt trội.
           </p>
         </div>
 
@@ -191,87 +192,109 @@
 
         </div>
 
-        <!-- 4 Giant Game Selector Tabs -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <!-- 5 Giant Game Selector Tabs -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3.5 mb-6">
           
-          <button class="kid-game-tab active p-3 sm:p-4 rounded-2xl bg-white border-2 border-orange-400 text-slate-800 shadow-md flex flex-col items-center justify-center gap-2 transition transform hover:scale-105 active:scale-95" data-game="bubbles">
-            <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl shadow-xs">
+          <!-- Tab 1: Bong bóng -->
+          <button class="kid-game-tab active p-2.5 sm:p-3.5 rounded-2xl bg-white border-2 border-orange-400 text-slate-800 shadow-md flex flex-col items-center justify-center gap-1.5 transition transform hover:scale-105 active:scale-95" data-game="bubbles">
+            <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl shadow-xs">
               🎈
             </div>
             <div class="text-center">
               <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Bong Bóng Nổ</div>
-              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Chạm nổ Bốp!</div>
+              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Đếm số 1-5 & Bóng mẹ</div>
             </div>
           </button>
 
-          <button class="kid-game-tab p-3 sm:p-4 rounded-2xl bg-white border border-amber-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-2 transition transform hover:scale-105 active:scale-95" data-game="animals">
-            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl shadow-xs">
-              🐶
+          <!-- Tab 2: Ú òa nông trại -->
+          <button class="kid-game-tab p-2.5 sm:p-3.5 rounded-2xl bg-white border border-amber-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-1.5 transition transform hover:scale-105 active:scale-95" data-game="animals">
+            <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl shadow-xs">
+              🏡
             </div>
             <div class="text-center">
-              <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Động Vật Ú Òa</div>
-              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Nghe tiếng kêu</div>
+              <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Nông Trại Ú Òa</div>
+              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Cửa 3D & Đố âm thanh</div>
             </div>
           </button>
 
-          <button class="kid-game-tab p-3 sm:p-4 rounded-2xl bg-white border border-amber-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-2 transition transform hover:scale-105 active:scale-95" data-game="xylophone">
-            <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl shadow-xs">
+          <!-- Tab 3: Đàn cầu vồng -->
+          <button class="kid-game-tab p-2.5 sm:p-3.5 rounded-2xl bg-white border border-amber-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-1.5 transition transform hover:scale-105 active:scale-95" data-game="xylophone">
+            <div class="w-11 h-11 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl shadow-xs">
               🎵
             </div>
             <div class="text-center">
               <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Đàn Cầu Vồng</div>
-              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Gõ phím nhạc</div>
+              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Đom đóm dẫn nốt</div>
             </div>
           </button>
 
-          <button class="kid-game-tab p-3 sm:p-4 rounded-2xl bg-white border border-amber-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-2 transition transform hover:scale-105 active:scale-95" data-game="colors">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl shadow-xs">
-              🍎
+          <!-- Tab 4: Cho gấu ăn -->
+          <button class="kid-game-tab p-2.5 sm:p-3.5 rounded-2xl bg-white border border-amber-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-1.5 transition transform hover:scale-105 active:scale-95" data-game="colors">
+            <div class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl shadow-xs">
+              🐻
             </div>
             <div class="text-center">
-              <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Cho Gấu Ăn</div>
-              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Phân loại màu</div>
+              <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Cho Gấu Misa Ăn</div>
+              <div class="text-[10px] text-slate-500 font-semibold mt-0.5">Màu sắc & Hình khối</div>
+            </div>
+          </button>
+
+          <!-- Tab 5 (MỚI): Ghép bóng hình Montessori -->
+          <button class="kid-game-tab p-2.5 sm:p-3.5 rounded-2xl bg-white border border-purple-200 text-slate-800 shadow-xs flex flex-col items-center justify-center gap-1.5 transition transform hover:scale-105 active:scale-95 col-span-2 sm:col-span-1" data-game="shadows">
+            <div class="w-11 h-11 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl shadow-xs">
+              🧩
+            </div>
+            <div class="text-center">
+              <div class="font-display font-black text-xs sm:text-sm text-slate-900 leading-tight">Ghép Bóng Hình</div>
+              <div class="text-[10px] text-purple-600 font-bold mt-0.5">Montessori Trí Tuệ</div>
             </div>
           </button>
 
         </div>
 
         <!-- GAME STAGE CONTAINER -->
-        <div id="playzone-stage" class="bg-white rounded-3xl border-4 border-amber-300/80 shadow-2xl p-4 sm:p-8 min-h-[480px] relative overflow-hidden transition-all duration-300">
+        <div id="playzone-stage" class="bg-white rounded-3xl border-4 border-amber-300/80 shadow-2xl p-4 sm:p-7 min-h-[490px] relative overflow-hidden transition-all duration-300">
           
-          <!-- ================= GAME 1: BUBBLE POP ================= -->
+          <!-- ================= GAME 1: BUBBLE POP & COUNTING ================= -->
           <div id="screen-bubbles" class="kid-game-screen">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-amber-100">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2.5">
                 <span class="text-2xl">🎈</span>
                 <div>
-                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Bong Bóng Diệu Kỳ (Magic Bubble Pop)</h3>
-                  <p class="text-xs text-slate-500 font-medium">Bé hãy chạm ngón tay hoặc bấm chuột vào các quả bóng để nổ BỐP vui tai nhé!</p>
+                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Bong Bóng Diệu Kỳ & Đếm Số</h3>
+                  <p class="text-xs text-slate-500 font-medium">Bé chạm nổ bóng liên tiếp để nghe đếm nhịp 1, 2, 3, 4, 5 và săn tìm Bong Bóng Mẹ Khổng Lồ!</p>
                 </div>
               </div>
+
+              <!-- Combo counter badge -->
               <div class="flex items-center gap-2">
-                <button id="spawn-more-bubbles-btn" class="px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs sm:text-sm shadow-md transition transform hover:scale-105">
+                <div id="bubble-combo-tracker" class="flex items-center gap-1.5 bg-amber-50 border-2 border-amber-300 px-3.5 py-1.5 rounded-xl shadow-xs">
+                  <span class="text-xs font-black text-slate-700">Chuỗi nổ:</span>
+                  <div id="bubble-combo-stars" class="flex items-center gap-1 text-base">
+                    <span class="opacity-30">⭐</span><span class="opacity-30">⭐</span><span class="opacity-30">⭐</span><span class="opacity-30">⭐</span><span class="opacity-30">⭐</span>
+                  </div>
+                  <span id="bubble-combo-count" class="text-xs font-black text-orange-600 ml-1">0/5</span>
+                </div>
+
+                <button id="spawn-more-bubbles-btn" class="px-3.5 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-xs shadow-md transition transform hover:scale-105">
                   <i class="fa-solid fa-plus mr-1"></i> Thả Thêm Bóng
-                </button>
-                <button id="clear-bubbles-btn" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
-                  Làm mới
                 </button>
               </div>
             </div>
 
             <!-- Interactive Bubble Sky Area -->
-            <div id="bubble-sky-arena" class="relative w-full h-[360px] sm:h-[440px] rounded-2xl bg-gradient-to-b from-sky-200/50 via-cyan-100/40 to-amber-50/60 border-2 border-dashed border-sky-300 overflow-hidden cursor-pointer select-none">
+            <div id="bubble-sky-arena" class="relative w-full h-[360px] sm:h-[430px] rounded-2xl bg-gradient-to-b from-sky-200/50 via-cyan-100/40 to-amber-50/60 border-2 border-dashed border-sky-300 overflow-hidden cursor-pointer select-none">
               <!-- Animated floating clouds in background -->
               <div class="absolute top-4 left-6 text-3xl opacity-60 animate-pulse">☁️</div>
               <div class="absolute top-12 right-12 text-4xl opacity-50 animate-pulse">☁️</div>
               <div class="absolute top-28 left-1/3 text-2xl opacity-40">☁️</div>
 
               <!-- Floating prompt for baby -->
-              <div id="bubble-hint" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40 transition-opacity">
+              <div id="bubble-hint" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-50 transition-opacity">
                 <div class="text-center">
                   <span class="text-5xl animate-bounce block mb-2">👆</span>
-                  <span class="font-display font-black text-base sm:text-lg text-slate-700 bg-white/80 px-4 py-2 rounded-full shadow-xs">
-                    Chạm vào bóng để nổ Bốp!
+                  <span class="font-display font-black text-base sm:text-lg text-slate-700 bg-white/90 px-4 py-2 rounded-full shadow-md">
+                    Chạm vào bóng để nổ BỐP & đếm số nhé!
                   </span>
                 </div>
               </div>
@@ -281,38 +304,38 @@
             </div>
           </div>
 
-          <!-- ================= GAME 2: ANIMAL PEEK-A-BOO ================= -->
+          <!-- ================= GAME 2: 3D BARN PEEK-A-BOO ================= -->
           <div id="screen-animals" class="kid-game-screen hidden">
             
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-amber-100">
-              <div class="flex items-center gap-2">
-                <span class="text-2xl">🐶</span>
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">🏡</span>
                 <div>
-                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Tiếng Kêu Động Vật & Ú Òa</h3>
-                  <p class="text-xs text-slate-500 font-medium">Khám phá tiếng kêu các bạn thú hoặc chơi đố vui đoán con vật thông minh!</p>
+                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Ngôi Nhà Nông Trại Ú Òa 3D</h3>
+                  <p class="text-xs text-slate-500 font-medium">Bé chạm gõ cửa "Cốc cốc", cánh cửa bung mở Ú ÒA và bạn thú thò đầu ra chào bé!</p>
                 </div>
               </div>
 
               <!-- Animal Mode Selector -->
               <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
                 <button id="animal-mode-free" class="animal-mode-btn active px-3.5 py-1.5 rounded-lg text-xs font-black bg-white text-slate-800 shadow-xs transition">
-                  🐾 Tự Do Khám Phá
+                  🚪 Gõ Cửa Tự Do
                 </button>
                 <button id="animal-mode-quiz" class="animal-mode-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">
-                  ❓ Đố Vui Tìm Bạn Thú
+                  ❓ Đố: Ai Đang Gọi Sau Cửa?
                 </button>
               </div>
             </div>
 
             <!-- Quiz Banner (Appears when in quiz mode) -->
-            <div id="animal-quiz-box" class="hidden mb-4 p-4 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-400 text-white flex items-center justify-between shadow-md">
+            <div id="animal-quiz-box" class="hidden mb-4 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-400 text-white flex items-center justify-between shadow-md">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl animate-bounce">
-                  🗣️
+                  👂
                 </div>
                 <div>
-                  <div class="text-[11px] font-bold uppercase tracking-wider text-amber-100">Câu hỏi đố vui:</div>
-                  <div id="quiz-question-text" class="font-display font-black text-base sm:text-lg">Đố bé tìm thấy bạn Cún Con ở đâu nào?</div>
+                  <div class="text-[11px] font-bold uppercase tracking-wider text-amber-100">Lắng nghe và gõ đúng cửa:</div>
+                  <div id="quiz-question-text" class="font-display font-black text-base sm:text-lg">Đố bé biết tiếng ai đang gọi đấy? Hãy gõ cửa nhé!</div>
                 </div>
               </div>
               <button id="quiz-replay-audio-btn" class="px-3 py-1.5 rounded-xl bg-white text-orange-600 font-black text-xs shadow-xs hover:bg-amber-50 transition flex items-center gap-1.5">
@@ -320,197 +343,236 @@
               </button>
             </div>
 
-            <!-- Animals 6-Grid -->
+            <!-- Animals 6-Grid with 3D Barn Doors -->
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5" id="animals-grid">
               
               <!-- 1. Chú Cún -->
-              <div class="animal-card bg-amber-50/70 border-2 border-amber-200 hover:border-amber-400 rounded-2xl p-4 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-sm" data-animal="dog">
-                <div class="animal-avatar w-24 h-24 mx-auto mb-2 flex items-center justify-center transition transform">
-                  <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                    <!-- Dog Head -->
-                    <circle cx="50" cy="50" r="38" fill="#FBBF24"/>
-                    <!-- Ears -->
-                    <ellipse cx="20" cy="35" rx="10" ry="18" fill="#D97706" transform="rotate(-15 20 35)"/>
-                    <ellipse cx="80" cy="35" rx="10" ry="18" fill="#D97706" transform="rotate(15 80 35)"/>
-                    <!-- Eyes -->
-                    <circle cx="38" cy="45" r="5" fill="#1E293B"/>
-                    <circle cx="62" cy="45" r="5" fill="#1E293B"/>
-                    <circle cx="40" cy="43" r="1.5" fill="#FFFFFF"/>
-                    <circle cx="64" cy="43" r="1.5" fill="#FFFFFF"/>
-                    <!-- Snout -->
-                    <ellipse cx="50" cy="58" rx="14" ry="10" fill="#FEF3C7"/>
-                    <!-- Nose -->
-                    <polygon points="50,55 45,51 55,51" fill="#78350F"/>
-                    <!-- Mouth & Tongue -->
-                    <path d="M 46 60 Q 50 63 54 60" stroke="#78350F" stroke-width="2" fill="none"/>
-                    <path d="M 48 62 Q 50 68 52 62 Z" fill="#FB7185"/>
-                    <!-- Cheeks -->
-                    <circle cx="32" cy="54" r="4" fill="#FCA5A5" opacity="0.6"/>
-                    <circle cx="68" cy="54" r="4" fill="#FCA5A5" opacity="0.6"/>
-                  </svg>
+              <div class="barn-card" data-animal="dog">
+                <div class="barn-box border-4 border-amber-300">
+                  <div class="barn-door barn-door-left"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-door barn-door-right"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-interior">
+                    <div class="animal-avatar w-20 h-20 mx-auto mb-1">
+                      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                        <circle cx="50" cy="50" r="38" fill="#FBBF24"/>
+                        <ellipse cx="20" cy="35" rx="10" ry="18" fill="#D97706" transform="rotate(-15 20 35)"/>
+                        <ellipse cx="80" cy="35" rx="10" ry="18" fill="#D97706" transform="rotate(15 80 35)"/>
+                        <circle cx="38" cy="45" r="5" fill="#1E293B"/>
+                        <circle cx="62" cy="45" r="5" fill="#1E293B"/>
+                        <circle cx="40" cy="43" r="1.5" fill="#FFFFFF"/>
+                        <circle cx="64" cy="43" r="1.5" fill="#FFFFFF"/>
+                        <ellipse cx="50" cy="58" rx="14" ry="10" fill="#FEF3C7"/>
+                        <polygon points="50,55 45,51 55,51" fill="#78350F"/>
+                        <path d="M 46 60 Q 50 63 54 60" stroke="#78350F" stroke-width="2" fill="none"/>
+                        <path d="M 48 62 Q 50 68 52 62 Z" fill="#FB7185"/>
+                        <circle cx="32" cy="54" r="4" fill="#FCA5A5" opacity="0.6"/>
+                        <circle cx="68" cy="54" r="4" fill="#FCA5A5" opacity="0.6"/>
+                      </svg>
+                    </div>
+                    <div class="font-display font-black text-sm text-slate-800">Chú Cún Con</div>
+                    <div class="text-[11px] font-bold text-amber-600">"Gâu gâu!"</div>
+                  </div>
                 </div>
-                <div class="font-display font-black text-base text-slate-800">Chú Cún Con</div>
-                <div class="text-xs font-bold text-amber-600 mt-0.5">"Gâu gâu!"</div>
               </div>
 
               <!-- 2. Mèo Con -->
-              <div class="animal-card bg-orange-50/70 border-2 border-orange-200 hover:border-orange-400 rounded-2xl p-4 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-sm" data-animal="cat">
-                <div class="animal-avatar w-24 h-24 mx-auto mb-2 flex items-center justify-center transition transform">
-                  <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                    <!-- Cat Ears -->
-                    <polygon points="20,40 30,15 48,32" fill="#F97316"/>
-                    <polygon points="24,36 32,20 44,32" fill="#FED7AA"/>
-                    <polygon points="80,40 70,15 52,32" fill="#F97316"/>
-                    <polygon points="76,36 68,20 56,32" fill="#FED7AA"/>
-                    <!-- Head -->
-                    <circle cx="50" cy="52" r="36" fill="#FB923C"/>
-                    <!-- Eyes -->
-                    <ellipse cx="38" cy="48" rx="5" ry="6" fill="#15803D"/>
-                    <ellipse cx="62" cy="48" rx="5" ry="6" fill="#15803D"/>
-                    <circle cx="40" cy="46" r="1.5" fill="#FFFFFF"/>
-                    <circle cx="64" cy="46" r="1.5" fill="#FFFFFF"/>
-                    <!-- Nose -->
-                    <polygon points="50,57 47,54 53,54" fill="#BE185D"/>
-                    <!-- Mouth -->
-                    <path d="M 45 60 Q 50 63 55 60" stroke="#7C2D12" stroke-width="2" fill="none"/>
-                    <!-- Whiskers -->
-                    <line x1="20" y1="54" x2="34" y2="55" stroke="#7C2D12" stroke-width="1.5"/>
-                    <line x1="20" y1="60" x2="34" y2="59" stroke="#7C2D12" stroke-width="1.5"/>
-                    <line x1="80" y1="54" x2="66" y2="55" stroke="#7C2D12" stroke-width="1.5"/>
-                    <line x1="80" y1="60" x2="66" y2="59" stroke="#7C2D12" stroke-width="1.5"/>
-                  </svg>
+              <div class="barn-card" data-animal="cat">
+                <div class="barn-box border-4 border-orange-300">
+                  <div class="barn-door barn-door-left"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-door barn-door-right"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-interior">
+                    <div class="animal-avatar w-20 h-20 mx-auto mb-1">
+                      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                        <polygon points="20,40 30,15 48,32" fill="#F97316"/>
+                        <polygon points="24,36 32,20 44,32" fill="#FED7AA"/>
+                        <polygon points="80,40 70,15 52,32" fill="#F97316"/>
+                        <polygon points="76,36 68,20 56,32" fill="#FED7AA"/>
+                        <circle cx="50" cy="52" r="36" fill="#FB923C"/>
+                        <ellipse cx="38" cy="48" rx="5" ry="6" fill="#15803D"/>
+                        <ellipse cx="62" cy="48" rx="5" ry="6" fill="#15803D"/>
+                        <circle cx="40" cy="46" r="1.5" fill="#FFFFFF"/>
+                        <circle cx="64" cy="46" r="1.5" fill="#FFFFFF"/>
+                        <polygon points="50,57 47,54 53,54" fill="#BE185D"/>
+                        <path d="M 45 60 Q 50 63 55 60" stroke="#7C2D12" stroke-width="2" fill="none"/>
+                        <line x1="20" y1="54" x2="34" y2="55" stroke="#7C2D12" stroke-width="1.5"/>
+                        <line x1="20" y1="60" x2="34" y2="59" stroke="#7C2D12" stroke-width="1.5"/>
+                        <line x1="80" y1="54" x2="66" y2="55" stroke="#7C2D12" stroke-width="1.5"/>
+                        <line x1="80" y1="60" x2="66" y2="59" stroke="#7C2D12" stroke-width="1.5"/>
+                      </svg>
+                    </div>
+                    <div class="font-display font-black text-sm text-slate-800">Bạn Mèo Con</div>
+                    <div class="text-[11px] font-bold text-orange-600">"Meo meo!"</div>
+                  </div>
                 </div>
-                <div class="font-display font-black text-base text-slate-800">Bạn Mèo Con</div>
-                <div class="text-xs font-bold text-orange-600 mt-0.5">"Meo meo!"</div>
               </div>
 
-              <!-- 3. Chú Vịt Vàng -->
-              <div class="animal-card bg-yellow-50/70 border-2 border-yellow-200 hover:border-yellow-400 rounded-2xl p-4 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-sm" data-animal="duck">
-                <div class="animal-avatar w-24 h-24 mx-auto mb-2 flex items-center justify-center transition transform">
-                  <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                    <!-- Duck Head -->
-                    <circle cx="50" cy="48" r="36" fill="#FDE047"/>
-                    <!-- Tuft hair -->
-                    <path d="M 46 14 Q 50 8 54 14" stroke="#EAB308" stroke-width="3" fill="none"/>
-                    <!-- Eyes -->
-                    <circle cx="38" cy="42" r="5" fill="#1E293B"/>
-                    <circle cx="62" cy="42" r="5" fill="#1E293B"/>
-                    <circle cx="39" cy="40" r="1.5" fill="#FFFFFF"/>
-                    <circle cx="63" cy="40" r="1.5" fill="#FFFFFF"/>
-                    <!-- Beak -->
-                    <ellipse cx="50" cy="56" rx="16" ry="9" fill="#F97316"/>
-                    <circle cx="46" cy="54" r="1" fill="#C2410C"/>
-                    <circle cx="54" cy="54" r="1" fill="#C2410C"/>
-                    <!-- Cheeks -->
-                    <circle cx="30" cy="50" r="4" fill="#F87171" opacity="0.6"/>
-                    <circle cx="70" cy="50" r="4" fill="#F87171" opacity="0.6"/>
-                  </svg>
+              <!-- 3. Vịt Vàng -->
+              <div class="barn-card" data-animal="duck">
+                <div class="barn-box border-4 border-yellow-300">
+                  <div class="barn-door barn-door-left"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-door barn-door-right"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-interior">
+                    <div class="animal-avatar w-20 h-20 mx-auto mb-1">
+                      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                        <circle cx="50" cy="48" r="36" fill="#FDE047"/>
+                        <path d="M 46 14 Q 50 8 54 14" stroke="#EAB308" stroke-width="3" fill="none"/>
+                        <circle cx="38" cy="42" r="5" fill="#1E293B"/>
+                        <circle cx="62" cy="42" r="5" fill="#1E293B"/>
+                        <circle cx="39" cy="40" r="1.5" fill="#FFFFFF"/>
+                        <circle cx="63" cy="40" r="1.5" fill="#FFFFFF"/>
+                        <ellipse cx="50" cy="56" rx="16" ry="9" fill="#F97316"/>
+                        <circle cx="46" cy="54" r="1" fill="#C2410C"/>
+                        <circle cx="54" cy="54" r="1" fill="#C2410C"/>
+                        <circle cx="30" cy="50" r="4" fill="#F87171" opacity="0.6"/>
+                        <circle cx="70" cy="50" r="4" fill="#F87171" opacity="0.6"/>
+                      </svg>
+                    </div>
+                    <div class="font-display font-black text-sm text-slate-800">Chú Vịt Vàng</div>
+                    <div class="text-[11px] font-bold text-yellow-600">"Quạc quạc!"</div>
+                  </div>
                 </div>
-                <div class="font-display font-black text-base text-slate-800">Chú Vịt Vàng</div>
-                <div class="text-xs font-bold text-yellow-600 mt-0.5">"Quạc quạc!"</div>
               </div>
 
-              <!-- 4. Chú Ếch Xanh -->
-              <div class="animal-card bg-emerald-50/70 border-2 border-emerald-200 hover:border-emerald-400 rounded-2xl p-4 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-sm" data-animal="frog">
-                <div class="animal-avatar w-24 h-24 mx-auto mb-2 flex items-center justify-center transition transform">
-                  <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                    <!-- Frog Big Eye Bulges -->
-                    <circle cx="32" cy="32" r="15" fill="#4ADE80"/>
-                    <circle cx="68" cy="32" r="15" fill="#4ADE80"/>
-                    <circle cx="32" cy="30" r="7" fill="#1E293B"/>
-                    <circle cx="68" cy="30" r="7" fill="#1E293B"/>
-                    <circle cx="34" cy="28" r="2" fill="#FFFFFF"/>
-                    <circle cx="70" cy="28" r="2" fill="#FFFFFF"/>
-                    <!-- Head -->
-                    <ellipse cx="50" cy="55" rx="38" ry="30" fill="#22C55E"/>
-                    <!-- Cheeks -->
-                    <circle cx="26" cy="58" r="6" fill="#F472B6" opacity="0.7"/>
-                    <circle cx="74" cy="58" r="6" fill="#F472B6" opacity="0.7"/>
-                    <!-- Wide Mouth -->
-                    <path d="M 32 60 Q 50 72 68 60" stroke="#15803D" stroke-width="3" fill="none"/>
-                  </svg>
+              <!-- 4. Ếch Xanh -->
+              <div class="barn-card" data-animal="frog">
+                <div class="barn-box border-4 border-emerald-300">
+                  <div class="barn-door barn-door-left"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-door barn-door-right"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-interior">
+                    <div class="animal-avatar w-20 h-20 mx-auto mb-1">
+                      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                        <circle cx="32" cy="32" r="15" fill="#4ADE80"/>
+                        <circle cx="68" cy="32" r="15" fill="#4ADE80"/>
+                        <circle cx="32" cy="30" r="7" fill="#1E293B"/>
+                        <circle cx="68" cy="30" r="7" fill="#1E293B"/>
+                        <circle cx="34" cy="28" r="2" fill="#FFFFFF"/>
+                        <circle cx="70" cy="28" r="2" fill="#FFFFFF"/>
+                        <ellipse cx="50" cy="55" rx="38" ry="30" fill="#22C55E"/>
+                        <circle cx="26" cy="58" r="6" fill="#F472B6" opacity="0.7"/>
+                        <circle cx="74" cy="58" r="6" fill="#F472B6" opacity="0.7"/>
+                        <path d="M 32 60 Q 50 72 68 60" stroke="#15803D" stroke-width="3" fill="none"/>
+                      </svg>
+                    </div>
+                    <div class="font-display font-black text-sm text-slate-800">Chú Ếch Cốm</div>
+                    <div class="text-[11px] font-bold text-emerald-600">"Ộp ộp!"</div>
+                  </div>
                 </div>
-                <div class="font-display font-black text-base text-slate-800">Chú Ếch Cốm</div>
-                <div class="text-xs font-bold text-emerald-600 mt-0.5">"Ộp ộp!"</div>
               </div>
 
-              <!-- 5. Bác Bò Sữa -->
-              <div class="animal-card bg-slate-50 border-2 border-slate-200 hover:border-slate-400 rounded-2xl p-4 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-sm" data-animal="cow">
-                <div class="animal-avatar w-24 h-24 mx-auto mb-2 flex items-center justify-center transition transform">
-                  <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                    <!-- Horns -->
-                    <path d="M 28 28 Q 24 14 36 20" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round" fill="none"/>
-                    <path d="M 72 28 Q 76 14 64 20" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round" fill="none"/>
-                    <!-- Ears -->
-                    <ellipse cx="18" cy="38" rx="8" ry="14" fill="#FFFFFF" stroke="#E2E8F0" transform="rotate(-30 18 38)"/>
-                    <ellipse cx="82" cy="38" rx="8" ry="14" fill="#FFFFFF" stroke="#E2E8F0" transform="rotate(30 82 38)"/>
-                    <!-- Head -->
-                    <circle cx="50" cy="48" r="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
-                    <!-- Black Spot on Face -->
-                    <path d="M 32 30 Q 42 26 44 42 Q 36 50 30 40 Z" fill="#1E293B"/>
-                    <!-- Eyes -->
-                    <circle cx="38" cy="44" r="4.5" fill="#1E293B"/>
-                    <circle cx="62" cy="44" r="4.5" fill="#1E293B"/>
-                    <circle cx="39" cy="42" r="1.5" fill="#FFFFFF"/>
-                    <circle cx="63" cy="42" r="1.5" fill="#FFFFFF"/>
-                    <!-- Big Pink Snout -->
-                    <ellipse cx="50" cy="62" rx="20" ry="13" fill="#FDA4AF"/>
-                    <circle cx="43" cy="61" r="3" fill="#E11D48"/>
-                    <circle cx="57" cy="61" r="3" fill="#E11D48"/>
-                  </svg>
+              <!-- 5. Bò Sữa -->
+              <div class="barn-card" data-animal="cow">
+                <div class="barn-box border-4 border-slate-300">
+                  <div class="barn-door barn-door-left"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-door barn-door-right"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-interior">
+                    <div class="animal-avatar w-20 h-20 mx-auto mb-1">
+                      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                        <path d="M 28 28 Q 24 14 36 20" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round" fill="none"/>
+                        <path d="M 72 28 Q 76 14 64 20" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round" fill="none"/>
+                        <ellipse cx="18" cy="38" rx="8" ry="14" fill="#FFFFFF" stroke="#E2E8F0" transform="rotate(-30 18 38)"/>
+                        <ellipse cx="82" cy="38" rx="8" ry="14" fill="#FFFFFF" stroke="#E2E8F0" transform="rotate(30 82 38)"/>
+                        <circle cx="50" cy="48" r="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+                        <path d="M 32 30 Q 42 26 44 42 Q 36 50 30 40 Z" fill="#1E293B"/>
+                        <circle cx="38" cy="44" r="4.5" fill="#1E293B"/>
+                        <circle cx="62" cy="44" r="4.5" fill="#1E293B"/>
+                        <circle cx="39" cy="42" r="1.5" fill="#FFFFFF"/>
+                        <circle cx="63" cy="42" r="1.5" fill="#FFFFFF"/>
+                        <ellipse cx="50" cy="62" rx="20" ry="13" fill="#FDA4AF"/>
+                        <circle cx="43" cy="61" r="3" fill="#E11D48"/>
+                        <circle cx="57" cy="61" r="3" fill="#E11D48"/>
+                      </svg>
+                    </div>
+                    <div class="font-display font-black text-sm text-slate-800">Bác Bò Sữa</div>
+                    <div class="text-[11px] font-bold text-slate-600">"Ùm bòooo!"</div>
+                  </div>
                 </div>
-                <div class="font-display font-black text-base text-slate-800">Bác Bò Sữa</div>
-                <div class="text-xs font-bold text-slate-600 mt-0.5">"Ùm bòooo!"</div>
               </div>
 
-              <!-- 6. Chú Gà Trống -->
-              <div class="animal-card bg-rose-50/70 border-2 border-rose-200 hover:border-rose-400 rounded-2xl p-4 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-sm" data-animal="rooster">
-                <div class="animal-avatar w-24 h-24 mx-auto mb-2 flex items-center justify-center transition transform">
-                  <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                    <!-- Red Comb (Mào gà) -->
-                    <path d="M 40 22 C 38 12 48 10 50 18 C 54 10 64 12 60 22 Z" fill="#EF4444"/>
-                    <!-- Head -->
-                    <circle cx="50" cy="48" r="32" fill="#FEF08A"/>
-                    <!-- Eyes -->
-                    <circle cx="40" cy="42" r="4.5" fill="#1E293B"/>
-                    <circle cx="60" cy="42" r="4.5" fill="#1E293B"/>
-                    <circle cx="41" cy="40" r="1.5" fill="#FFFFFF"/>
-                    <circle cx="61" cy="40" r="1.5" fill="#FFFFFF"/>
-                    <!-- Orange Beak -->
-                    <polygon points="50,54 42,48 58,48" fill="#F97316"/>
-                    <!-- Wattle (Yếm đỏ) -->
-                    <ellipse cx="50" cy="62" rx="6" ry="9" fill="#EF4444"/>
-                  </svg>
+              <!-- 6. Gà Trống -->
+              <div class="barn-card" data-animal="rooster">
+                <div class="barn-box border-4 border-rose-300">
+                  <div class="barn-door barn-door-left"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-door barn-door-right"><span class="text-amber-200 text-xs font-black">🚪</span></div>
+                  <div class="barn-interior">
+                    <div class="animal-avatar w-20 h-20 mx-auto mb-1">
+                      <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                        <path d="M 40 22 C 38 12 48 10 50 18 C 54 10 64 12 60 22 Z" fill="#EF4444"/>
+                        <circle cx="50" cy="48" r="32" fill="#FEF08A"/>
+                        <circle cx="40" cy="42" r="4.5" fill="#1E293B"/>
+                        <circle cx="60" cy="42" r="4.5" fill="#1E293B"/>
+                        <circle cx="41" cy="40" r="1.5" fill="#FFFFFF"/>
+                        <circle cx="61" cy="40" r="1.5" fill="#FFFFFF"/>
+                        <polygon points="50,54 42,48 58,48" fill="#F97316"/>
+                        <ellipse cx="50" cy="62" rx="6" ry="9" fill="#EF4444"/>
+                      </svg>
+                    </div>
+                    <div class="font-display font-black text-sm text-slate-800">Chú Gà Trống</div>
+                    <div class="text-[11px] font-bold text-rose-600">"Ò ó o o!"</div>
+                  </div>
                 </div>
-                <div class="font-display font-black text-base text-slate-800">Chú Gà Trống</div>
-                <div class="text-xs font-bold text-rose-600 mt-0.5">"Ò ó o o!"</div>
               </div>
 
             </div>
 
           </div>
 
-          <!-- ================= GAME 3: RAINBOW XYLOPHONE ================= -->
+          <!-- ================= GAME 3: GUIDED RAINBOW XYLOPHONE ================= -->
           <div id="screen-xylophone" class="kid-game-screen hidden">
             
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-amber-100">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2.5">
                 <span class="text-2xl">🎵</span>
                 <div>
-                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Đàn Cầu Vồng Tí Hon (Rainbow Xylophone)</h3>
-                  <p class="text-xs text-slate-500 font-medium">Bé gõ vào từng thanh màu để ngân vang nốt nhạc trong trẻo!</p>
+                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Đàn Cầu Vồng & Đom Đóm Dẫn Nhịp</h3>
+                  <p class="text-xs text-slate-500 font-medium">Bé gõ theo chú Đom Đóm phát sáng để hoàn thành bài hát hoặc đổi 3 âm sắc nhạc cụ vui tai!</p>
                 </div>
               </div>
 
-              <!-- Demo song player -->
-              <button id="xylo-demo-song-btn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white font-extrabold text-xs sm:text-sm shadow-md transition transform hover:scale-105">
-                <i class="fa-solid fa-music mr-1.5"></i> Nghe Đàn Tự Chơi: "Kìa Con Bướm Vàng"
-              </button>
+              <!-- Multi-Instrument switch pills -->
+              <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                <button class="sound-mode-btn active px-3 py-1.5 rounded-lg text-xs font-black bg-white text-slate-800 shadow-xs transition" data-inst="xylo">
+                  🔔 Chuông Bạc
+                </button>
+                <button class="sound-mode-btn px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition" data-inst="piano">
+                  🎹 Đàn Piano
+                </button>
+                <button class="sound-mode-btn px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition" data-inst="cat">
+                  🐱 Mèo Hát
+                </button>
+              </div>
             </div>
 
-            <!-- Xylophone Instrument Frame -->
-            <div class="max-w-3xl mx-auto py-4">
-              <div class="bg-amber-900/80 p-4 sm:p-6 rounded-3xl shadow-xl border-4 border-amber-950/60 relative">
+            <!-- Firefly Song Guide Control Bar -->
+            <div class="bg-gradient-to-r from-amber-50 via-sky-50 to-emerald-50 border border-amber-200 rounded-2xl p-3 mb-4 flex flex-wrap items-center justify-between gap-2 shadow-xs">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl animate-bounce">🌟</span>
+                <div>
+                  <div class="text-xs font-bold text-slate-500">Chế độ tập gõ theo nốt:</div>
+                  <div id="firefly-status-text" class="font-display font-black text-sm text-amber-800">
+                    Bé gõ theo bạn Đom Đóm phát sáng để chơi bài "Kìa Con Bướm Vàng" nhé!
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button id="toggle-firefly-btn" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs shadow-xs transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> <span id="firefly-btn-text">Bật Đom Đóm</span>
+                </button>
+                <button id="xylo-demo-song-btn" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-black text-xs shadow-xs transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-play"></i> Nghe Đàn Tự Chơi
+                </button>
+              </div>
+            </div>
+
+            <!-- Xylophone Instrument Frame with Floating Firefly Guide -->
+            <div class="max-w-3xl mx-auto py-2 relative">
+              
+              <!-- Floating Firefly Indicator Element -->
+              <div id="firefly-guide" class="firefly-glow hidden">
+                ✨
+              </div>
+
+              <div class="bg-amber-900/80 p-3 sm:p-5 rounded-3xl shadow-xl border-4 border-amber-950/60 relative">
                 
                 <!-- Wooden support bars -->
                 <div class="absolute top-1/4 left-0 right-0 h-4 bg-amber-950/70 pointer-events-none"></div>
@@ -520,81 +582,81 @@
                 <div class="grid grid-cols-8 gap-1.5 sm:gap-3 items-center relative z-10" id="xylophone-keys">
                   
                   <!-- Key 1: Do (Red) -->
-                  <div class="xylo-key bg-gradient-to-b from-rose-400 to-rose-600 text-white rounded-xl sm:rounded-2xl h-64 sm:h-72 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-rose-300" data-note="C4" data-freq="261.63">
+                  <div class="xylo-key bg-gradient-to-b from-rose-400 to-rose-600 text-white rounded-xl sm:rounded-2xl h-60 sm:h-72 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-rose-300" data-note="C4" data-freq="261.63">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">ĐỒ</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">C</span>
+                      <span class="font-display font-black text-xs sm:text-base block">ĐỒ</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">C</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 2: Re (Orange) -->
-                  <div class="xylo-key bg-gradient-to-b from-orange-400 to-orange-600 text-white rounded-xl sm:rounded-2xl h-60 sm:h-68 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-orange-300" data-note="D4" data-freq="293.66">
+                  <div class="xylo-key bg-gradient-to-b from-orange-400 to-orange-600 text-white rounded-xl sm:rounded-2xl h-56 sm:h-68 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-orange-300" data-note="D4" data-freq="293.66">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">RÊ</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">D</span>
+                      <span class="font-display font-black text-xs sm:text-base block">RÊ</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">D</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 3: Mi (Yellow) -->
-                  <div class="xylo-key bg-gradient-to-b from-amber-300 to-yellow-500 text-slate-900 rounded-xl sm:rounded-2xl h-56 sm:h-64 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-amber-200" data-note="E4" data-freq="329.63">
+                  <div class="xylo-key bg-gradient-to-b from-amber-300 to-yellow-500 text-slate-900 rounded-xl sm:rounded-2xl h-52 sm:h-64 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-amber-200" data-note="E4" data-freq="329.63">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">MI</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">E</span>
+                      <span class="font-display font-black text-xs sm:text-base block">MI</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">E</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 4: Fa (Green) -->
-                  <div class="xylo-key bg-gradient-to-b from-emerald-400 to-emerald-600 text-white rounded-xl sm:rounded-2xl h-52 sm:h-60 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-emerald-300" data-note="F4" data-freq="349.23">
+                  <div class="xylo-key bg-gradient-to-b from-emerald-400 to-emerald-600 text-white rounded-xl sm:rounded-2xl h-48 sm:h-60 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-emerald-300" data-note="F4" data-freq="349.23">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">PHA</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">F</span>
+                      <span class="font-display font-black text-xs sm:text-base block">PHA</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">F</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 5: Sol (Teal/Cyan) -->
-                  <div class="xylo-key bg-gradient-to-b from-teal-400 to-teal-600 text-white rounded-xl sm:rounded-2xl h-48 sm:h-56 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-teal-300" data-note="G4" data-freq="392.00">
+                  <div class="xylo-key bg-gradient-to-b from-teal-400 to-teal-600 text-white rounded-xl sm:rounded-2xl h-44 sm:h-56 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-teal-300" data-note="G4" data-freq="392.00">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">SON</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">G</span>
+                      <span class="font-display font-black text-xs sm:text-base block">SON</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">G</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 6: La (Sky Blue) -->
-                  <div class="xylo-key bg-gradient-to-b from-sky-400 to-sky-600 text-white rounded-xl sm:rounded-2xl h-44 sm:h-52 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-sky-300" data-note="A4" data-freq="440.00">
+                  <div class="xylo-key bg-gradient-to-b from-sky-400 to-sky-600 text-white rounded-xl sm:rounded-2xl h-40 sm:h-52 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-sky-300" data-note="A4" data-freq="440.00">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">LA</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">A</span>
+                      <span class="font-display font-black text-xs sm:text-base block">LA</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">A</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 7: Si (Indigo) -->
-                  <div class="xylo-key bg-gradient-to-b from-indigo-400 to-indigo-600 text-white rounded-xl sm:rounded-2xl h-40 sm:h-48 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-indigo-300" data-note="B4" data-freq="493.88">
+                  <div class="xylo-key bg-gradient-to-b from-indigo-400 to-indigo-600 text-white rounded-xl sm:rounded-2xl h-36 sm:h-48 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-indigo-300" data-note="B4" data-freq="493.88">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">SI</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">B</span>
+                      <span class="font-display font-black text-xs sm:text-base block">SI</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">B</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
 
                   <!-- Key 8: Do high (Purple/Pink) -->
-                  <div class="xylo-key bg-gradient-to-b from-purple-400 to-pink-600 text-white rounded-xl sm:rounded-2xl h-36 sm:h-44 flex flex-col justify-between items-center py-4 cursor-pointer select-none shadow-lg transform transition active:scale-95 active:translate-y-2 border-2 border-purple-300" data-note="C5" data-freq="523.25">
+                  <div class="xylo-key bg-gradient-to-b from-purple-400 to-pink-600 text-white rounded-xl sm:rounded-2xl h-32 sm:h-44 flex flex-col justify-between items-center py-3.5 cursor-pointer select-none shadow-lg transform transition border-2 border-purple-300" data-note="C5" data-freq="523.25">
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                     <div class="text-center">
-                      <span class="font-display font-black text-sm sm:text-lg block">ĐỐ</span>
-                      <span class="text-[10px] sm:text-xs font-bold opacity-80">C5</span>
+                      <span class="font-display font-black text-xs sm:text-base block">ĐỐ</span>
+                      <span class="text-[9px] sm:text-xs font-bold opacity-80">C5</span>
                     </div>
                     <span class="w-3 h-3 rounded-full bg-white/70 shadow-xs"></span>
                   </div>
@@ -606,40 +668,59 @@
 
           </div>
 
-          <!-- ================= GAME 4: YUMMY COLOR MATCH ================= -->
+          <!-- ================= GAME 4: BEAR FEEDING (COLORS & MONTESSORI SHAPES) ================= -->
           <div id="screen-colors" class="kid-game-screen hidden">
             
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-amber-100">
-              <div class="flex items-center gap-2">
-                <span class="text-2xl">🍎</span>
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">🐻</span>
                 <div>
-                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Cho Bạn Gấu Ăn Đúng Màu (Yummy Color Match)</h3>
-                  <p class="text-xs text-slate-500 font-medium">Bé giúp bạn Gấu bụng bự tìm đúng loại quả có màu sắc mà bạn ấy thèm nhé!</p>
+                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Cho Gấu Misa Ăn (Màu Sắc & Hình Khối)</h3>
+                  <p class="text-xs text-slate-500 font-medium">Bé cho gấu ăn đúng món theo yêu cầu, cho ăn đủ 3 món để bụng gấu no căng tròn nhé!</p>
                 </div>
               </div>
 
-              <!-- Re-read question audio -->
-              <button id="color-replay-audio-btn" class="px-3.5 py-1.5 rounded-xl bg-orange-100 hover:bg-orange-200 text-orange-800 font-extrabold text-xs shadow-xs transition flex items-center gap-1.5">
-                <i class="fa-solid fa-volume-high text-orange-600"></i> Nghe Lại Lời Gấu
-              </button>
+              <!-- Switch between Colors (Fruits) and Shapes (Cookies) -->
+              <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                <button id="bear-mode-colors" class="shape-toggle-btn active px-3.5 py-1.5 rounded-lg text-xs font-black bg-white text-slate-800 shadow-xs transition">
+                  🍎 Hoa Quả (Màu Sắc)
+                </button>
+                <button id="bear-mode-shapes" class="shape-toggle-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">
+                  🍪 Bánh Quy (Hình Khối)
+                </button>
+              </div>
+            </div>
+
+            <!-- Bear Fullness Progress Meter -->
+            <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-3 mb-4 max-w-xl mx-auto flex items-center justify-between gap-3 shadow-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🍯</span>
+                <div class="text-xs font-black text-slate-800">
+                  Bụng no của Gấu Misa:
+                </div>
+              </div>
+              <div class="flex-1 max-w-xs bg-amber-200/60 rounded-full h-4 overflow-hidden p-0.5 border border-amber-300">
+                <div id="bear-tummy-fill" class="tummy-bar-fill bg-gradient-to-r from-orange-500 to-amber-500 h-full rounded-full w-0"></div>
+              </div>
+              <span id="bear-tummy-count" class="text-xs font-black text-brand-orange">0/3 món</span>
             </div>
 
             <!-- Bear Area and Eating Stage -->
-            <div class="max-w-2xl mx-auto text-center space-y-6">
+            <div class="max-w-2xl mx-auto text-center space-y-4">
               
               <!-- Bear Character Graphic with Speech Bubble -->
               <div class="flex flex-col items-center justify-center">
                 
                 <!-- Speech Bubble -->
-                <div class="bg-amber-100 border-2 border-amber-300 px-5 py-2.5 rounded-2xl shadow-sm text-slate-800 inline-block mb-3 animate-pulse-subtle">
+                <div class="bg-amber-100 border-2 border-amber-300 px-5 py-2 rounded-2xl shadow-sm text-slate-800 inline-block mb-2 animate-pulse-subtle">
                   <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Gấu Misa đang thèm:</span>
-                  <span class="font-display font-black text-lg sm:text-xl text-slate-900">
+                  <span id="bear-demand-text" class="font-display font-black text-lg sm:text-xl text-slate-900">
                     Bé ơi, cho Gấu ăn quả màu <span id="color-target-name" class="text-rose-600 underline font-black text-xl sm:text-2xl">ĐỎ</span> nhé!
                   </span>
                 </div>
 
                 <!-- Animated SVG Bear -->
-                <div class="w-36 h-36 sm:w-44 sm:h-44 relative" id="bear-character">
+                <div class="w-32 h-32 sm:w-40 sm:h-40 relative" id="bear-character">
                   <svg viewBox="0 0 120 120" class="w-full h-full drop-shadow-lg">
                     <!-- Bear Ears -->
                     <circle cx="28" cy="30" r="16" fill="#B45309"/>
@@ -667,34 +748,75 @@
 
               </div>
 
-              <!-- 3 Giant Fruit Plates to Pick -->
-              <div class="grid grid-cols-3 gap-3 sm:gap-6 pt-2" id="fruit-plates-container">
-                
-                <!-- Plate 1: Red -->
-                <div class="fruit-plate bg-rose-50/80 border-4 border-rose-300 hover:border-rose-500 rounded-3xl p-4 sm:p-6 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-md" data-color="red">
-                  <div class="text-5xl sm:text-6xl mb-2 transition transform">🍎</div>
-                  <div class="font-display font-black text-sm sm:text-lg text-rose-600">Quả Táo ĐỎ</div>
-                  <div class="text-[11px] font-bold text-slate-500">Màu Đỏ</div>
-                </div>
-
-                <!-- Plate 2: Yellow -->
-                <div class="fruit-plate bg-amber-50/80 border-4 border-amber-300 hover:border-amber-500 rounded-3xl p-4 sm:p-6 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-md" data-color="yellow">
-                  <div class="text-5xl sm:text-6xl mb-2 transition transform">🍌</div>
-                  <div class="font-display font-black text-sm sm:text-lg text-amber-600">Chuối VÀNG</div>
-                  <div class="text-[11px] font-bold text-slate-500">Màu Vàng</div>
-                </div>
-
-                <!-- Plate 3: Green -->
-                <div class="fruit-plate bg-emerald-50/80 border-4 border-emerald-300 hover:border-emerald-500 rounded-3xl p-4 sm:p-6 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-md" data-color="green">
-                  <div class="text-5xl sm:text-6xl mb-2 transition transform">🍇</div>
-                  <div class="font-display font-black text-sm sm:text-lg text-emerald-600">Nho XANH</div>
-                  <div class="text-[11px] font-bold text-slate-500">Màu Xanh</div>
-                </div>
-
+              <!-- Replay voice prompt button -->
+              <div>
+                <button id="color-replay-audio-btn" class="px-3 py-1.5 rounded-xl bg-orange-100 hover:bg-orange-200 text-orange-800 font-black text-xs shadow-xs transition inline-flex items-center gap-1.5">
+                  <i class="fa-solid fa-volume-high text-orange-600"></i> Nghe Lại Lời Gấu
+                </button>
               </div>
 
-              <div id="color-feedback-msg" class="h-8 font-display font-black text-base sm:text-lg text-emerald-600 transition-all opacity-0">
+              <!-- Food Items Container (Switches between Fruit Plates & Shape Plates) -->
+              <div id="food-plates-container" class="pt-1">
+                <!-- Injected dynamically by JavaScript -->
+              </div>
+
+              <div id="color-feedback-msg" class="h-8 font-display font-black text-sm sm:text-base text-emerald-600 transition-all opacity-0">
                 <!-- Feedback message text -->
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- ================= GAME 5 (MỚI): MONTESSORI SHADOW MATCH ================= -->
+          <div id="screen-shadows" class="kid-game-screen hidden">
+            
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-purple-100">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">🧩</span>
+                <div>
+                  <h3 class="font-display font-black text-lg sm:text-xl text-slate-900">Trò Chơi: Ghép Bóng Hình Thông Minh (Montessori Match)</h3>
+                  <p class="text-xs text-slate-500 font-medium">Bé chạm hoặc kéo thả đồ vật vào đúng bóng đen tương ứng để rèn luyện thị giác không gian nhé!</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button id="shadow-replay-audio-btn" class="px-3 py-1.5 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-800 font-black text-xs shadow-xs transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-volume-high"></i> Hướng Dẫn
+                </button>
+                <button id="shadow-reset-btn" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black text-xs shadow-md transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-rotate-right"></i> Màn Chơi Mới
+                </button>
+              </div>
+            </div>
+
+            <!-- Match Arena -->
+            <div class="max-w-4xl mx-auto space-y-6">
+              
+              <!-- 1. Top Area: 4 Silhouette Drop Slots -->
+              <div>
+                <div class="text-xs font-black uppercase tracking-wider text-slate-400 mb-2 flex items-center justify-center gap-2">
+                  <span>🌑 Khay Bóng Đen (Bé hãy tìm hình tương ứng)</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" id="shadow-slots-container">
+                  <!-- Injected dynamically by JS -->
+                </div>
+              </div>
+
+              <!-- 2. Bottom Area: 4 Colorful Toys to Pick/Drag -->
+              <div class="bg-gradient-to-r from-purple-50/70 via-pink-50/60 to-amber-50/70 p-4 sm:p-5 rounded-3xl border-2 border-dashed border-purple-300 shadow-inner">
+                <div class="text-xs font-black uppercase tracking-wider text-purple-700 mb-3 text-center">
+                  <span>✨ Đồ Vật Màu Sắc (Bấm chọn hoặc kéo thả vào bóng đen nhé)</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4" id="shadow-toys-container">
+                  <!-- Injected dynamically by JS -->
+                </div>
+              </div>
+
+              <!-- Success celebration banner -->
+              <div id="shadow-celebration" class="hidden text-center p-4 bg-emerald-100 border-2 border-emerald-300 rounded-2xl animate-bounce">
+                <span class="text-3xl block mb-1">🎉 🌟 👏</span>
+                <span class="font-display font-black text-lg text-emerald-800">Hoan hô bé! Bé đã ghép đúng hết tất cả các hình rồi! Thật là xuất sắc!</span>
               </div>
 
             </div>

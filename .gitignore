@@ -2,3 +2,4 @@ cloudflared.exe
 *.bak
 *.log
 __pycache__/
+.netlify/

@@ -14,6 +14,7 @@ class ToddlerAudioEngine {
     this.ctx = null;
     this.isMuted = false;
     this.currentVoiceAudio = null;
+    this.currentInstrument = "xylo"; // "xylo" | "piano" | "cat"
   }
 
   init() {
@@ -59,20 +60,83 @@ class ToddlerAudioEngine {
       osc.frequency.setValueAtTime(baseFreq, now);
       osc.frequency.exponentialRampToValueAtTime(baseFreq * 2.4, now + 0.08);
 
-      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.setValueAtTime(0.35, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
       osc.start(now);
-      osc.stop(now + 0.09);
-    } catch (e) {
-      console.warn("Audio pop error:", e);
+      osc.stop(now + 0.1);
+    } catch (e) {}
+  }
+
+  // Knocking door sound (woody percussive thud)
+  playKnock() {
+    if (this.isMuted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      [0, 0.12, 0.24].forEach(offset => {
+        const now = this.ctx.currentTime + offset;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(50, now + 0.06);
+
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.07);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.08);
+      });
+    } catch (e) {}
+  }
+
+  // Magnetic snap sound for puzzle
+  playSnap() {
+    if (this.isMuted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(700, now);
+      osc.frequency.exponentialRampToValueAtTime(1400, now + 0.1);
+
+      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.13);
+    } catch (e) {}
+  }
+
+  // Route note by active instrument
+  playInstrumentNote(freq) {
+    if (this.currentInstrument === "piano") {
+      this.playPianoNote(freq);
+    } else if (this.currentInstrument === "cat") {
+      this.playCatMeow(freq);
+    } else {
+      this.playXyloNote(freq);
     }
   }
 
-  // Xylophone chime note with natural harmonics
+  // Xylophone Bell Note
   playXyloNote(freq) {
     if (this.isMuted) return;
     this.init();
@@ -80,237 +144,259 @@ class ToddlerAudioEngine {
 
     try {
       const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
+      const osc1 = this.ctx.createOscillator();
+      const osc2 = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, now);
+      osc1.type = "sine";
+      osc1.frequency.setValueAtTime(freq, now);
 
-      // Overtone for bell-like chime resonance
-      const osc2 = this.ctx.createOscillator();
-      const gain2 = this.ctx.createGain();
       osc2.type = "triangle";
-      osc2.frequency.setValueAtTime(freq * 3, now);
+      osc2.frequency.setValueAtTime(freq * 2.76, now);
 
       gain.gain.setValueAtTime(0.5, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
 
-      gain2.gain.setValueAtTime(0.2, now);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-
-      osc.connect(gain);
+      osc1.connect(gain);
+      osc2.connect(gain);
       gain.connect(this.ctx.destination);
 
-      osc2.connect(gain2);
-      gain2.connect(this.ctx.destination);
-
-      osc.start(now);
+      osc1.start(now);
       osc2.start(now);
-      osc.stop(now + 0.8);
-      osc2.stop(now + 0.4);
-    } catch (e) {
-      console.warn("Audio xylo error:", e);
-    }
+      osc1.stop(now + 0.95);
+      osc2.stop(now + 0.95);
+    } catch (e) {}
   }
 
-  // Cheerful fanfare arpeggio (C - E - G - C5)
-  playCheer() {
+  // Piano Note (multi-harmonic decay)
+  playPianoNote(freq) {
     if (this.isMuted) return;
     this.init();
     if (!this.ctx) return;
 
-    const notes = [523.25, 659.25, 783.99, 1046.50];
-    notes.forEach((freq, idx) => {
-      setTimeout(() => {
-        this.playXyloNote(freq);
-      }, idx * 110);
-    });
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const oscHarmonic = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(freq, now);
+
+      oscHarmonic.type = "sine";
+      oscHarmonic.frequency.setValueAtTime(freq * 2, now);
+
+      gain.gain.setValueAtTime(0.45, now);
+      gain.gain.exponentialRampToValueAtTime(0.12, now + 0.2);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.85);
+
+      osc.connect(gain);
+      oscHarmonic.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      oscHarmonic.start(now);
+      osc.stop(now + 0.9);
+      oscHarmonic.stop(now + 0.9);
+    } catch (e) {}
   }
 
-  // Cute munch crunch sound when bear eats fruit
+  // Cat Meow Note (frequency-modulated cute whine)
+  playCatMeow(freq) {
+    if (this.isMuted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = "sawtooth";
+      // Meow glide: starts a bit lower, swoops up, then slopes down
+      osc.frequency.setValueAtTime(freq * 0.9, now);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.35, now + 0.16);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.95, now + 0.42);
+
+      // Lowpass filter to soften sawtooth sound like vocal tract
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(1400, now);
+
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.3, now + 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.48);
+    } catch (e) {}
+  }
+
+  // Animal calls
+  playAnimalSound(type) {
+    if (this.isMuted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    try {
+      if (type === "dog") {
+        // "Gâu gâu!"
+        [0, 0.22].forEach(delay => {
+          const t = now + delay;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(180, t);
+          osc.frequency.exponentialRampToValueAtTime(90, t + 0.15);
+          gain.gain.setValueAtTime(0.5, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.16);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.18);
+        });
+      } else if (type === "cat") {
+        // "Meo meo"
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(380, now);
+        osc.frequency.exponentialRampToValueAtTime(560, now + 0.2);
+        osc.frequency.exponentialRampToValueAtTime(320, now + 0.55);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.58);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.6);
+      } else if (type === "duck") {
+        // "Quạc quạc"
+        [0, 0.25].forEach(delay => {
+          const t = now + delay;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(260, t);
+          osc.frequency.exponentialRampToValueAtTime(190, t + 0.16);
+          gain.gain.setValueAtTime(0.35, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.17);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.18);
+        });
+      } else if (type === "frog") {
+        // "Ộp ộp"
+        [0, 0.28].forEach(delay => {
+          const t = now + delay;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = "square";
+          osc.frequency.setValueAtTime(110, t);
+          osc.frequency.exponentialRampToValueAtTime(75, t + 0.18);
+          gain.gain.setValueAtTime(0.3, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.19);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.2);
+        });
+      } else if (type === "cow") {
+        // "Ùm bòooo"
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(130, now);
+        osc.frequency.exponentialRampToValueAtTime(105, now + 0.7);
+        gain.gain.setValueAtTime(0.35, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.8);
+      } else if (type === "rooster") {
+        // "Ò ó o o"
+        const notes = [280, 420, 520, 360];
+        notes.forEach((freq, idx) => {
+          const t = now + idx * 0.16;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(0.35, t);
+          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.15);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(t);
+          osc.stop(t + 0.16);
+        });
+      }
+    } catch (e) {}
+  }
+
+  // Munch sound for eating
   playMunch() {
     if (this.isMuted) return;
     this.init();
     if (!this.ctx) return;
 
-    for (let i = 0; i < 3; i++) {
-      setTimeout(() => {
-        try {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
+    [0, 0.14, 0.28].forEach(offset => {
+      const now = this.ctx.currentTime + offset;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
 
-          osc.type = "triangle";
-          osc.frequency.setValueAtTime(320 + Math.random() * 80, now);
-          osc.frequency.exponentialRampToValueAtTime(140, now + 0.07);
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(260 + Math.random() * 80, now);
+      osc.frequency.exponentialRampToValueAtTime(90, now + 0.08);
 
-          gain.gain.setValueAtTime(0.35, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.09);
 
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
 
-          osc.start(now);
-          osc.stop(now + 0.08);
-        } catch (e) {}
-      }, i * 95);
-    }
+      osc.start(now);
+      osc.stop(now + 0.1);
+    });
   }
 
-  // Animal calls synthesis + Real Vietnamese Audio Voice
-  playAnimalSound(type) {
+  // Cheer chords
+  playCheer() {
     if (this.isMuted) return;
     this.init();
-
-    if (type === "dog") {
-      this.synthBark();
-      setTimeout(() => this.playVoice("audio/animal_dog.mp3", "Gâu gâu! Bạn Cún Con!"), 320);
-    } else if (type === "cat") {
-      this.synthMeow();
-      setTimeout(() => this.playVoice("audio/animal_cat.mp3", "Meo meo! Bạn Mèo Con!"), 480);
-    } else if (type === "duck") {
-      this.synthQuack();
-      setTimeout(() => this.playVoice("audio/animal_duck.mp3", "Quạc quạc! Chú Vịt Vàng!"), 360);
-    } else if (type === "frog") {
-      this.synthRibbit();
-      setTimeout(() => this.playVoice("audio/animal_frog.mp3", "Ộp ộp! Chú Ếch Xanh!"), 280);
-    } else if (type === "cow") {
-      this.synthMoo();
-      setTimeout(() => this.playVoice("audio/animal_cow.mp3", "Ùm bò! Bác Bò Sữa!"), 680);
-    } else if (type === "rooster") {
-      this.synthRooster();
-      setTimeout(() => this.playVoice("audio/animal_rooster.mp3", "Ò ó o o! Chú Gà Trống!"), 580);
-    }
-  }
-
-  synthBark() {
     if (!this.ctx) return;
-    for (let i = 0; i < 2; i++) {
-      setTimeout(() => {
-        try {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "sawtooth";
-          osc.frequency.setValueAtTime(360, now);
-          osc.frequency.exponentialRampToValueAtTime(180, now + 0.12);
-          gain.gain.setValueAtTime(0.4, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.13);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.13);
-        } catch (e) {}
-      }, i * 150);
-    }
-  }
 
-  synthMeow() {
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
+    const chords = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+    const now = this.ctx.currentTime;
+    chords.forEach((freq, idx) => {
+      const t = now + idx * 0.07;
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
+
       osc.type = "sine";
-      osc.frequency.setValueAtTime(400, now);
-      osc.frequency.exponentialRampToValueAtTime(850, now + 0.2);
-      osc.frequency.exponentialRampToValueAtTime(500, now + 0.45);
-      gain.gain.setValueAtTime(0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.46);
+      osc.frequency.setValueAtTime(freq, t);
+
+      gain.gain.setValueAtTime(0.28, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+
       osc.connect(gain);
       gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.46);
-    } catch (e) {}
+
+      osc.start(t);
+      osc.stop(t + 0.5);
+    });
   }
 
-  synthQuack() {
-    if (!this.ctx) return;
-    for (let i = 0; i < 2; i++) {
-      setTimeout(() => {
-        try {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "sawtooth";
-          osc.frequency.setValueAtTime(320, now);
-          osc.frequency.exponentialRampToValueAtTime(240, now + 0.15);
-          gain.gain.setValueAtTime(0.35, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.16);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.16);
-        } catch (e) {}
-      }, i * 170);
-    }
-  }
-
-  synthRibbit() {
-    if (!this.ctx) return;
-    for (let i = 0; i < 2; i++) {
-      setTimeout(() => {
-        try {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "square";
-          osc.frequency.setValueAtTime(140, now);
-          osc.frequency.linearRampToValueAtTime(220, now + 0.08);
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.1);
-        } catch (e) {}
-      }, i * 130);
-    }
-  }
-
-  synthMoo() {
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = "triangle";
-      osc.frequency.setValueAtTime(130, now);
-      osc.frequency.linearRampToValueAtTime(120, now + 0.6);
-      gain.gain.setValueAtTime(0.45, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.65);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.65);
-    } catch (e) {}
-  }
-
-  synthRooster() {
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(450, now);
-      osc.frequency.linearRampToValueAtTime(650, now + 0.2);
-      osc.frequency.linearRampToValueAtTime(800, now + 0.5);
-      gain.gain.setValueAtTime(0.35, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.55);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.55);
-    } catch (e) {}
-  }
-
-  // High-fidelity Vietnamese Audio Playback with TTS fallback
+  // Play Vietnamese voice audio file
   playVoice(audioPath, fallbackText = "") {
     if (this.isMuted) return;
     this.init();
 
-    // Stop previous voice playback if still active
     if (this.currentVoiceAudio) {
       try {
         this.currentVoiceAudio.pause();
@@ -321,72 +407,50 @@ class ToddlerAudioEngine {
     if (audioPath) {
       const audio = new Audio(audioPath);
       this.currentVoiceAudio = audio;
+
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(err => {
-          console.warn("Audio file playback error, attempting fallback:", err);
-          if (fallbackText) this.speak(fallbackText);
+          // Fallback only to Vietnamese TTS if available
+          this.speakVietnameseOnly(fallbackText);
         });
       }
-      return;
-    }
-
-    if (fallbackText) {
-      this.speak(fallbackText);
+    } else {
+      this.speakVietnameseOnly(fallbackText);
     }
   }
 
-  // Pure Vietnamese TTS only - STRICTLY BLOCKS English/Foreign TTS voices from reading Vietnamese
-  speak(text) {
-    if (this.isMuted) return;
-    if (!window.speechSynthesis) return;
-
-    try {
-      window.speechSynthesis.cancel();
-      const voices = window.speechSynthesis.getVoices();
-
-      // Look ONLY for genuine Vietnamese voices (e.g. Google Tiếng Việt, Microsoft HoaiMy/An)
-      const viVoice = voices.find(v => {
-        const lang = (v.lang || "").toLowerCase();
-        const name = (v.name || "").toLowerCase();
-        return lang.includes("vi") || lang.startsWith("vi-") || name.includes("vietnam") || name.includes("tiếng việt");
-      });
-
-      // CRITICAL: If no Vietnamese voice is installed in the OS, NEVER read with English voice!
-      // (Reading Vietnamese with English phonetics sounds terrible and confuses the baby)
-      if (!viVoice) {
-        console.warn("No native Vietnamese TTS voice available; English voices blocked from butchering Vietnamese text.");
-        return;
-      }
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = viVoice;
-      utterance.lang = viVoice.lang || "vi-VN";
-      utterance.rate = 0.95;
-      utterance.pitch = 1.2;
-
-      window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      console.warn("Speech Synthesis error:", e);
+  speakVietnameseOnly(text) {
+    if (!text || this.isMuted || !window.speechSynthesis) return;
+    const voices = window.speechSynthesis.getVoices();
+    const viVoice = voices.find(v => v.lang && v.lang.startsWith("vi"));
+    if (!viVoice) {
+      // Do NOT fallback to English OS voice to prevent broken accents
+      return;
     }
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.voice = viVoice;
+    utter.lang = "vi-VN";
+    utter.rate = 0.92;
+    utter.pitch = 1.15;
+    window.speechSynthesis.speak(utter);
   }
 }
 
-// Global Audio Engine Instance
 const soundEngine = new ToddlerAudioEngine();
 
-// Global Kids Star Counter
-let kidsStarsCount = 0;
-function addBabyStars(amount = 1, showPraise = true) {
-  kidsStarsCount += amount;
-  const starEl = document.getElementById("kids-stars-count");
-  if (starEl) {
-    starEl.textContent = kidsStarsCount;
-    starEl.classList.add("scale-125", "text-amber-500");
-    setTimeout(() => starEl.classList.remove("scale-125", "text-amber-500"), 300);
+// Star praise counter
+let babyStarsCount = 0;
+function addBabyStars(count = 1, showCelebration = false) {
+  babyStarsCount += count;
+  const countEl = document.getElementById("kids-stars-count");
+  if (countEl) {
+    countEl.textContent = babyStarsCount;
+    countEl.classList.add("scale-125");
+    setTimeout(() => countEl.classList.remove("scale-125"), 250);
   }
 
-  if (showPraise && kidsStarsCount % 5 === 0) {
+  if (showCelebration) {
     if (typeof confetti === "function") {
       confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
     }
@@ -405,7 +469,8 @@ function initPlayzone() {
     bubbles: document.getElementById("screen-bubbles"),
     animals: document.getElementById("screen-animals"),
     xylophone: document.getElementById("screen-xylophone"),
-    colors: document.getElementById("screen-colors")
+    colors: document.getElementById("screen-colors"),
+    shadows: document.getElementById("screen-shadows")
   };
 
   tabs.forEach(tab => {
@@ -428,12 +493,16 @@ function initPlayzone() {
       // Special initializations on tab enter
       if (targetGame === "bubbles") {
         initBubbleGame();
+        soundEngine.playVoice("audio/bubble_hint.mp3", "Chạm vào bóng để nổ bốp!");
       } else if (targetGame === "colors") {
         initColorGame();
       } else if (targetGame === "animals") {
-        soundEngine.playVoice("audio/welcome.mp3", "Chào mừng bé đến với thế giới động vật!");
+        soundEngine.playVoice("audio/welcome.mp3", "Chào mừng bé đến với nông trại ú òa!");
       } else if (targetGame === "xylophone") {
         soundEngine.playVoice("audio/xylo_intro.mp3", "Bé hãy gõ vào các phím đàn cầu vồng nhé!");
+      } else if (targetGame === "shadows") {
+        initShadowGame();
+        soundEngine.playVoice("audio/shadow_intro.mp3", "Bé hãy ghép đồ vật vào đúng bóng đen nhé!");
       }
     });
   });
@@ -473,15 +542,20 @@ function initPlayzone() {
     });
   }
 
-  // Initialize first game (Bubbles)
+  // Initialize all games
   initBubbleGame();
   initAnimalGame();
   initXylophoneGame();
   initColorGame();
+  initShadowGame();
 }
 
-// --- B. GAME 1: MAGIC BUBBLE POP ENGINE ---
+// --- B. GAME 1: MAGIC BUBBLE POP & AUDIO COUNTING (1-5) ---
 let bubbleInterval = null;
+let bubbleComboCount = 0;
+let bubbleComboTimer = null;
+let bubbleSpawnCounter = 0;
+
 const BUBBLE_COLORS = [
   "radial-gradient(circle at 35% 35%, #fbcfe8, #f43f5e)", // Pink Rose
   "radial-gradient(circle at 35% 35%, #bae6fd, #0284c7)", // Sky Blue
@@ -496,24 +570,23 @@ function initBubbleGame() {
   const container = document.getElementById("bubbles-container");
   const arena = document.getElementById("bubble-sky-arena");
   const spawnBtn = document.getElementById("spawn-more-bubbles-btn");
-  const clearBtn = document.getElementById("clear-bubbles-btn");
 
   if (!container || !arena) return;
 
-  // Clear existing
   if (bubbleInterval) clearInterval(bubbleInterval);
 
-  // Spawn initial 6 bubbles
+  container.innerHTML = "";
+  // Spawn initial bubbles
   for (let i = 0; i < 6; i++) {
     createBubble(container, arena, true);
   }
 
-  // Auto spawn a gentle bubble every 2.2 seconds
+  // Auto spawn a bubble every 2 seconds
   bubbleInterval = setInterval(() => {
-    if (container.children.length < 12) {
+    if (container.children.length < 10) {
       createBubble(container, arena, false);
     }
-  }, 2200);
+  }, 2000);
 
   if (spawnBtn) {
     spawnBtn.onclick = () => {
@@ -524,40 +597,88 @@ function initBubbleGame() {
       }
     };
   }
+}
 
-  if (clearBtn) {
-    clearBtn.onclick = () => {
-      container.innerHTML = "";
-      for (let i = 0; i < 5; i++) {
-        createBubble(container, arena, true);
-      }
-    };
+function updateBubbleComboUI() {
+  const countEl = document.getElementById("bubble-combo-count");
+  const starsEl = document.getElementById("bubble-combo-stars");
+  if (!countEl || !starsEl) return;
+
+  countEl.textContent = `${bubbleComboCount}/5`;
+  const starIcons = starsEl.querySelectorAll("span");
+  starIcons.forEach((star, idx) => {
+    if (idx < bubbleComboCount) {
+      star.className = "text-amber-500 scale-125 transition transform";
+    } else {
+      star.className = "opacity-30";
+    }
+  });
+}
+
+function triggerBubbleCombo() {
+  bubbleComboCount++;
+  if (bubbleComboTimer) clearTimeout(bubbleComboTimer);
+
+  updateBubbleComboUI();
+
+  // Play Vietnamese counting audio
+  const countAudio = `audio/count_${bubbleComboCount}.mp3`;
+  soundEngine.playVoice(countAudio, `${bubbleComboCount}!`);
+
+  if (bubbleComboCount >= 5) {
+    // Reached 5 in a row!
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+    }
+    addBabyStars(2, false);
+    bubbleComboCount = 0;
+    setTimeout(() => updateBubbleComboUI(), 1200);
+  } else {
+    // Reset combo if baby pauses for more than 2.8s
+    bubbleComboTimer = setTimeout(() => {
+      bubbleComboCount = 0;
+      updateBubbleComboUI();
+    }, 2800);
   }
 }
 
-function createBubble(container, arena, isInitial = false) {
+function createBubble(container, arena, isInitial = false, isMother = false) {
   const bubble = document.createElement("div");
   bubble.className = "game-bubble";
 
-  const size = Math.floor(75 + Math.random() * 35); // 75px - 110px
-  const color = BUBBLE_COLORS[Math.floor(Math.random() * BUBBLE_COLORS.length)];
-  const symbol = BUBBLE_SYMBOLS[Math.floor(Math.random() * BUBBLE_SYMBOLS.length)];
-  const leftPercent = Math.floor(5 + Math.random() * 85);
+  bubbleSpawnCounter++;
+  // Every 8th bubble is a Giant Mother Bubble!
+  if (!isMother && bubbleSpawnCounter % 8 === 0) {
+    isMother = true;
+  }
+
+  let size = isMother ? 125 : Math.floor(75 + Math.random() * 32);
+  let color = isMother 
+    ? "radial-gradient(circle at 35% 35%, #fed7aa, #ec4899 50%, #8b5cf6 100%)"
+    : BUBBLE_COLORS[Math.floor(Math.random() * BUBBLE_COLORS.length)];
+  let symbol = isMother ? "👑" : BUBBLE_SYMBOLS[Math.floor(Math.random() * BUBBLE_SYMBOLS.length)];
+  let leftPercent = Math.floor(6 + Math.random() * 80);
+
+  if (isMother) {
+    bubble.classList.add("mother-bubble");
+  }
 
   bubble.style.width = `${size}px`;
   bubble.style.height = `${size}px`;
   bubble.style.background = color;
   bubble.style.left = `${leftPercent}%`;
-  bubble.style.fontSize = `${Math.floor(size * 0.38)}px`;
+  bubble.style.fontSize = `${Math.floor(size * (isMother ? 0.45 : 0.38))}px`;
   bubble.innerHTML = `<span class="drop-shadow-sm text-white">${symbol}</span>`;
 
-  const duration = (6 + Math.random() * 4).toFixed(1); // 6s - 10s gentle rise
-  bubble.style.animation = `bubbleFloatUp ${duration}s ease-in-out infinite`;
+  const duration = isMother ? 12 : (6 + Math.random() * 4).toFixed(1);
+  bubble.style.animation = isMother 
+    ? `bubbleFloatUp ${duration}s ease-in-out infinite, motherPulse 2s ease-in-out infinite`
+    : `bubbleFloatUp ${duration}s ease-in-out infinite`;
 
   if (isInitial) {
-    bubble.style.bottom = `${Math.floor(10 + Math.random() * 70)}%`;
+    bubble.style.bottom = `${Math.floor(10 + Math.random() * 65)}%`;
   } else {
-    bubble.style.bottom = "-120px";
+    bubble.style.bottom = "-130px";
   }
 
   // Pop interaction
@@ -567,7 +688,6 @@ function createBubble(container, arena, isInitial = false) {
     soundEngine.init();
     soundEngine.playPop();
 
-    // Create burst effect
     const rect = bubble.getBoundingClientRect();
     const arenaRect = arena.getBoundingClientRect();
     const x = rect.left - arenaRect.left + rect.width / 2;
@@ -575,22 +695,64 @@ function createBubble(container, arena, isInitial = false) {
 
     createPopSparkle(arena, x, y, symbol);
     bubble.remove();
-    addBabyStars(1, false);
 
-    // Hide hint if visible
+    if (isMother) {
+      // Mother Bubble bursts into 5 baby bubbles!
+      soundEngine.playVoice("audio/bubble_mother.mp3", "Bong bóng khổng lồ xuất hiện!");
+      soundEngine.playCheer();
+      addBabyStars(3, true);
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          createBabyBurstBubble(container, arena, x, y);
+        }, i * 60);
+      }
+    } else {
+      triggerBubbleCombo();
+      addBabyStars(1, false);
+    }
+
     const hint = document.getElementById("bubble-hint");
     if (hint) hint.style.display = "none";
 
-    // Spawn replacement after short delay
     setTimeout(() => {
       if (container.children.length < 8) {
         createBubble(container, arena, false);
       }
-    }, 800);
+    }, 900);
   };
 
   bubble.addEventListener("pointerdown", popAction);
   container.appendChild(bubble);
+}
+
+function createBabyBurstBubble(container, arena, startX, startY) {
+  const mini = document.createElement("div");
+  mini.className = "game-bubble";
+  const size = 65;
+  const color = BUBBLE_COLORS[Math.floor(Math.random() * BUBBLE_COLORS.length)];
+  const symbol = "✨";
+
+  mini.style.width = `${size}px`;
+  mini.style.height = `${size}px`;
+  mini.style.background = color;
+  mini.style.left = `${Math.max(10, Math.min(arena.clientWidth - 70, startX + (Math.random() - 0.5) * 140))}px`;
+  mini.style.top = `${Math.max(10, Math.min(arena.clientHeight - 70, startY + (Math.random() - 0.5) * 120))}px`;
+  mini.style.fontSize = "22px";
+  mini.innerHTML = `<span class="drop-shadow-sm text-white">${symbol}</span>`;
+  mini.style.animation = "bubbleFloatUp 7s ease-in-out infinite";
+
+  const popMini = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    soundEngine.playPop();
+    createPopSparkle(arena, parseFloat(mini.style.left) + 30, parseFloat(mini.style.top) + 30, "⭐");
+    mini.remove();
+    addBabyStars(1, false);
+  };
+
+  mini.addEventListener("pointerdown", popMini);
+  container.appendChild(mini);
 }
 
 function createPopSparkle(arena, x, y, symbol) {
@@ -609,8 +771,8 @@ function createPopSparkle(arena, x, y, symbol) {
   setTimeout(() => burst.remove(), 420);
 }
 
-// --- C. GAME 2: ANIMAL PEEK-A-BOO ENGINE ---
-let currentAnimalMode = "free"; // "free" | "quiz"
+// --- C. GAME 2: 3D BARN PEEK-A-BOO ENGINE ---
+let currentAnimalMode = "free";
 let currentQuizAnimal = null;
 const ANIMALS_DATA = [
   { id: "dog", name: "Chú Cún Con", soundName: "Gâu gâu", soundType: "dog", voiceFile: "audio/animal_dog.mp3", quizVoiceFile: "audio/quiz_dog.mp3" },
@@ -626,7 +788,7 @@ function initAnimalGame() {
   const quizBtn = document.getElementById("animal-mode-quiz");
   const quizBox = document.getElementById("animal-quiz-box");
   const replayBtn = document.getElementById("quiz-replay-audio-btn");
-  const cards = document.querySelectorAll(".animal-card");
+  const barns = document.querySelectorAll(".barn-card");
 
   if (!freeBtn || !quizBtn) return;
 
@@ -635,7 +797,7 @@ function initAnimalGame() {
     freeBtn.classList.add("active");
     quizBtn.classList.remove("active");
     if (quizBox) quizBox.classList.add("hidden");
-    soundEngine.playVoice("audio/free_mode.mp3", "Chế độ tự do! Bé thích bạn thú nào cứ bấm nhé!");
+    soundEngine.playVoice("audio/free_mode.mp3", "Chế độ gõ cửa tự do! Bé thích gõ ngôi nhà nào cứ bấm nhé!");
   });
 
   quizBtn.addEventListener("click", () => {
@@ -643,7 +805,11 @@ function initAnimalGame() {
     quizBtn.classList.add("active");
     freeBtn.classList.remove("active");
     if (quizBox) quizBox.classList.remove("hidden");
-    soundEngine.playVoice("audio/quiz_intro.mp3", "Bé hãy lắng nghe câu hỏi và tìm bạn thú nhé!");
+
+    // Close all doors first
+    document.querySelectorAll(".barn-box").forEach(box => box.classList.remove("door-open"));
+
+    soundEngine.playVoice("audio/who_is_calling.mp3", "Đố bé biết tiếng ai đang gọi đấy? Hãy gõ cửa nhé!");
     setTimeout(() => {
       if (currentAnimalMode === "quiz") {
         startNewAnimalQuiz();
@@ -654,52 +820,64 @@ function initAnimalGame() {
   if (replayBtn) {
     replayBtn.addEventListener("click", () => {
       if (currentQuizAnimal) {
-        soundEngine.playVoice(currentQuizAnimal.quizVoiceFile, `Đố bé tìm thấy ${currentQuizAnimal.name} ở đâu nào?`);
+        soundEngine.playAnimalSound(currentQuizAnimal.soundType);
       }
     });
   }
 
-  cards.forEach(card => {
+  barns.forEach(card => {
     card.addEventListener("click", () => {
       soundEngine.init();
       const animalId = card.getAttribute("data-animal");
       const animal = ANIMALS_DATA.find(a => a.id === animalId);
-      if (!animal) return;
+      const box = card.querySelector(".barn-box");
+      if (!animal || !box) return;
 
-      // Animate card
-      card.classList.add("dancing");
-      setTimeout(() => card.classList.remove("dancing"), 650);
+      // Knock sound and open door
+      soundEngine.playKnock();
+      box.classList.add("door-open");
+
+      setTimeout(() => {
+        soundEngine.playAnimalSound(animal.soundType);
+      }, 350);
 
       if (currentAnimalMode === "free") {
-        soundEngine.playAnimalSound(animal.soundType);
+        setTimeout(() => {
+          soundEngine.playVoice(animal.voiceFile, `${animal.soundName}! ${animal.name}!`);
+        }, 700);
         addBabyStars(1, false);
       } else if (currentAnimalMode === "quiz") {
         if (animalId === currentQuizAnimal.id) {
           // Correct!
-          soundEngine.playAnimalSound(animal.soundType);
           setTimeout(() => {
             soundEngine.playCheer();
-            soundEngine.playVoice("audio/quiz_correct.mp3", `Đúng rồi! Bé giỏi quá!`);
-          }, 600);
+            soundEngine.playVoice("audio/quiz_correct.mp3", "Đúng rồi! Bé giỏi quá!");
+          }, 700);
 
           if (typeof confetti === "function") {
-            confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 75, spread: 70, origin: { y: 0.6 } });
           }
-
           addBabyStars(2, true);
 
-          // Next quiz question after 2.8s
           setTimeout(() => {
             if (currentAnimalMode === "quiz") {
-              startNewAnimalQuiz();
+              // Close doors and start next round
+              document.querySelectorAll(".barn-box").forEach(b => b.classList.remove("door-open"));
+              setTimeout(() => startNewAnimalQuiz(), 600);
             }
-          }, 2800);
+          }, 3200);
         } else {
           // Wrong
-          soundEngine.playAnimalSound(animal.soundType);
           setTimeout(() => {
-            soundEngine.playVoice("audio/quiz_wrong.mp3", `Chưa đúng rồi! Bé thử lại lần nữa nhé!`);
-          }, 500);
+            soundEngine.playVoice("audio/quiz_wrong.mp3", "Chưa đúng rồi! Bé thử lại lần nữa nhé!");
+          }, 700);
+
+          // Close door after 1.8s so baby can try another door
+          setTimeout(() => {
+            if (currentAnimalMode === "quiz") {
+              box.classList.remove("door-open");
+            }
+          }, 1800);
         }
       }
     });
@@ -708,36 +886,79 @@ function initAnimalGame() {
 
 function startNewAnimalQuiz() {
   const quizText = document.getElementById("quiz-question-text");
-  // Pick random animal
   const randomIndex = Math.floor(Math.random() * ANIMALS_DATA.length);
   currentQuizAnimal = ANIMALS_DATA[randomIndex];
 
   if (quizText) {
-    quizText.textContent = `Đố bé tìm thấy ${currentQuizAnimal.name} ở đâu nào?`;
+    quizText.textContent = `Ai đang kêu "${currentQuizAnimal.soundName}" thế nhỉ? Bé hãy gõ cửa tìm bạn ấy nhé!`;
   }
 
-  soundEngine.playVoice(currentQuizAnimal.quizVoiceFile, `Đố bé tìm thấy ${currentQuizAnimal.name} ở đâu nào?`);
+  // Play animal sound directly to test baby's hearing perception
+  soundEngine.playAnimalSound(currentQuizAnimal.soundType);
 }
 
-// --- D. GAME 3: RAINBOW XYLOPHONE ENGINE ---
+// --- D. GAME 3: GUIDED RAINBOW XYLOPHONE & FIREFLY ENGINE ---
+const BUTTERFLY_SONG = [
+  "C4", "D4", "E4", "C4",
+  "C4", "D4", "E4", "C4",
+  "E4", "F4", "G4",
+  "E4", "F4", "G4",
+  "G4", "A4", "G4", "F4", "E4", "C4"
+];
+let fireflyStep = 0;
+let isFireflyActive = true;
+
 function initXylophoneGame() {
   const keys = document.querySelectorAll(".xylo-key");
   const demoBtn = document.getElementById("xylo-demo-song-btn");
+  const fireflyBtn = document.getElementById("toggle-firefly-btn");
+  const instBtns = document.querySelectorAll(".sound-mode-btn");
 
+  // Multi-Instrument switch
+  instBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      instBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const inst = btn.getAttribute("data-inst");
+      soundEngine.currentInstrument = inst;
+      soundEngine.playPop();
+    });
+  });
+
+  // Key press
   keys.forEach(key => {
     const handlePress = (e) => {
       e.preventDefault();
       soundEngine.init();
       const freq = parseFloat(key.getAttribute("data-freq"));
-      soundEngine.playXyloNote(freq);
+      const note = key.getAttribute("data-note");
 
-      // Key animation
+      soundEngine.playInstrumentNote(freq);
+
       key.classList.add("pressed");
       setTimeout(() => key.classList.remove("pressed"), 180);
 
-      // Sparkle music note
       createMusicNoteSparkle(key);
       addBabyStars(1, false);
+
+      // Check if matches firefly guide
+      if (isFireflyActive) {
+        const targetNote = BUTTERFLY_SONG[fireflyStep];
+        if (note === targetNote) {
+          fireflyStep++;
+          if (fireflyStep >= BUTTERFLY_SONG.length) {
+            // Completed song!
+            fireflyStep = 0;
+            soundEngine.playCheer();
+            soundEngine.playVoice("audio/song_complete.mp3", "Bé đánh đàn hay tuyệt vời!");
+            if (typeof confetti === "function") {
+              confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+            }
+            addBabyStars(3, true);
+          }
+          positionFireflyGuide();
+        }
+      }
     };
 
     key.addEventListener("pointerdown", handlePress);
@@ -747,6 +968,55 @@ function initXylophoneGame() {
     demoBtn.addEventListener("click", () => {
       playDemoSong();
     });
+  }
+
+  if (fireflyBtn) {
+    fireflyBtn.addEventListener("click", () => {
+      isFireflyActive = !isFireflyActive;
+      const guide = document.getElementById("firefly-guide");
+      const statusText = document.getElementById("firefly-status-text");
+      const btnText = document.getElementById("firefly-btn-text");
+
+      if (isFireflyActive) {
+        guide.classList.remove("hidden");
+        btnText.textContent = "Tắt Đom Đóm";
+        statusText.textContent = "Bé gõ theo bạn Đom Đóm phát sáng để chơi bài \"Kìa Con Bướm Vàng\" nhé!";
+        fireflyStep = 0;
+        positionFireflyGuide();
+        soundEngine.playVoice("audio/firefly_guide.mp3", "Bé gõ theo bạn Đom Đóm phát sáng nhé!");
+      } else {
+        guide.classList.add("hidden");
+        document.querySelectorAll(".xylo-key").forEach(k => k.classList.remove("guided-target"));
+        btnText.textContent = "Bật Đom Đóm";
+        statusText.textContent = "Chế độ gõ phím tự do theo sở thích của bé!";
+      }
+    });
+  }
+
+  // Initial position for firefly
+  setTimeout(() => {
+    positionFireflyGuide();
+  }, 400);
+}
+
+function positionFireflyGuide() {
+  const guide = document.getElementById("firefly-guide");
+  if (!guide || !isFireflyActive) return;
+
+  const targetNote = BUTTERFLY_SONG[fireflyStep];
+  const targetKey = document.querySelector(`.xylo-key[data-note="${targetNote}"]`);
+
+  document.querySelectorAll(".xylo-key").forEach(k => k.classList.remove("guided-target"));
+
+  if (targetKey) {
+    targetKey.classList.add("guided-target");
+    guide.classList.remove("hidden");
+
+    const keyRect = targetKey.getBoundingClientRect();
+    const parentRect = targetKey.parentElement.getBoundingClientRect();
+    const leftOffset = targetKey.offsetLeft + targetKey.offsetWidth / 2 - 22;
+    guide.style.left = `${leftOffset}px`;
+    guide.style.top = `-28px`;
   }
 }
 
@@ -764,42 +1034,30 @@ function createMusicNoteSparkle(key) {
   setTimeout(() => sparkle.remove(), 800);
 }
 
-// Play "Kìa Con Bướm Vàng" melody automatically
 function playDemoSong() {
   soundEngine.init();
-  // Notes: C4, D4, E4, C4 | C4, D4, E4, C4 | E4, F4, G4 | E4, F4, G4 | G4, A4, G4, F4, E4, C4
   const songNotes = [
     { note: "C4", freq: 261.63, delay: 0 },
     { note: "D4", freq: 293.66, delay: 400 },
     { note: "E4", freq: 329.63, delay: 800 },
     { note: "C4", freq: 261.63, delay: 1200 },
-
     { note: "C4", freq: 261.63, delay: 1700 },
     { note: "D4", freq: 293.66, delay: 2100 },
     { note: "E4", freq: 329.63, delay: 2500 },
     { note: "C4", freq: 261.63, delay: 2900 },
-
     { note: "E4", freq: 329.63, delay: 3400 },
     { note: "F4", freq: 349.23, delay: 3800 },
     { note: "G4", freq: 392.00, delay: 4200 },
-
     { note: "E4", freq: 329.63, delay: 4800 },
     { note: "F4", freq: 349.23, delay: 5200 },
-    { note: "G4", freq: 392.00, delay: 5600 },
-
-    { note: "G4", freq: 392.00, delay: 6200 },
-    { note: "A4", freq: 440.00, delay: 6500 },
-    { note: "G4", freq: 392.00, delay: 6800 },
-    { note: "F4", freq: 349.23, delay: 7100 },
-    { note: "E4", freq: 329.63, delay: 7400 },
-    { note: "C4", freq: 261.63, delay: 7800 }
+    { note: "G4", freq: 392.00, delay: 5600 }
   ];
 
   songNotes.forEach(item => {
     setTimeout(() => {
       const key = document.querySelector(`.xylo-key[data-note="${item.note}"]`);
       if (key) {
-        soundEngine.playXyloNote(item.freq);
+        soundEngine.playInstrumentNote(item.freq);
         key.classList.add("pressed");
         createMusicNoteSparkle(key);
         setTimeout(() => key.classList.remove("pressed"), 220);
@@ -808,65 +1066,118 @@ function playDemoSong() {
   });
 }
 
-// --- E. GAME 4: YUMMY COLOR MATCH ENGINE ---
-const COLOR_ROUNDS = [
-  { id: "red", name: "ĐỎ", fruit: "Quả Táo Đỏ", textColor: "text-rose-600", audioFile: "audio/bear_red.mp3" },
-  { id: "yellow", name: "VÀNG", fruit: "Quả Chuối Vàng", textColor: "text-amber-500", audioFile: "audio/bear_yellow.mp3" },
-  { id: "green", name: "XANH", fruit: "Quả Nho Xanh", textColor: "text-emerald-600", audioFile: "audio/bear_green.mp3" }
+// --- E. GAME 4: BEAR FEEDING (COLORS & MONTESSORI SHAPES) ---
+let currentBearMode = "colors"; // "colors" | "shapes"
+let bearFullness = 0; // 0..3
+
+const FRUIT_ROUNDS = [
+  { id: "red", name: "ĐỎ", label: "Quả Táo ĐỎ", icon: "🍎", audioFile: "audio/bear_red.mp3", textColor: "text-rose-600", bgStyle: "bg-rose-50 border-rose-300" },
+  { id: "yellow", name: "VÀNG", label: "Quả Chuối VÀNG", icon: "🍌", audioFile: "audio/bear_yellow.mp3", textColor: "text-amber-500", bgStyle: "bg-amber-50 border-amber-300" },
+  { id: "green", name: "XANH", label: "Quả Nho XANH", icon: "🍇", audioFile: "audio/bear_green.mp3", textColor: "text-emerald-600", bgStyle: "bg-emerald-50 border-emerald-300" }
 ];
-let currentColorTarget = null;
+
+const SHAPE_ROUNDS = [
+  { id: "circle", name: "TRÒN", label: "Bánh hình Tròn", icon: "🍪", audioFile: "audio/shape_circle.mp3", textColor: "text-amber-700", bgStyle: "bg-amber-50 border-amber-400" },
+  { id: "square", name: "VUÔNG", label: "Bánh hình Vuông", icon: "🧇", audioFile: "audio/shape_square.mp3", textColor: "text-orange-700", bgStyle: "bg-orange-50 border-orange-400" },
+  { id: "triangle", name: "TAM GIÁC", label: "Bánh hình Tam Giác", icon: "🥪", audioFile: "audio/shape_triangle.mp3", textColor: "text-rose-700", bgStyle: "bg-rose-50 border-rose-400" },
+  { id: "star", name: "NGÔI SAO", label: "Bánh hình Ngôi Sao", icon: "⭐", audioFile: "audio/shape_star.mp3", textColor: "text-yellow-600", bgStyle: "bg-yellow-50 border-yellow-400" }
+];
+
+let currentTargetItem = null;
 
 function initColorGame() {
-  const plates = document.querySelectorAll(".fruit-plate");
+  const modeColorsBtn = document.getElementById("bear-mode-colors");
+  const modeShapesBtn = document.getElementById("bear-mode-shapes");
   const replayBtn = document.getElementById("color-replay-audio-btn");
 
-  if (!plates.length) return;
+  if (modeColorsBtn && modeShapesBtn) {
+    modeColorsBtn.onclick = () => {
+      currentBearMode = "colors";
+      modeColorsBtn.classList.add("active");
+      modeShapesBtn.classList.remove("active");
+      pickNewBearTarget();
+    };
+
+    modeShapesBtn.onclick = () => {
+      currentBearMode = "shapes";
+      modeShapesBtn.classList.add("active");
+      modeColorsBtn.classList.remove("active");
+      pickNewBearTarget();
+    };
+  }
 
   if (replayBtn) {
     replayBtn.onclick = () => {
-      if (currentColorTarget) {
-        soundEngine.playVoice(currentColorTarget.audioFile, `Bé ơi, cho Gấu ăn ${currentColorTarget.fruit} màu ${currentColorTarget.name} nhé!`);
+      if (currentTargetItem) {
+        soundEngine.playVoice(currentTargetItem.audioFile, `Bé ơi, cho Gấu ăn ${currentTargetItem.label} nhé!`);
       }
     };
   }
 
-  plates.forEach(plate => {
-    plate.onclick = () => {
-      soundEngine.init();
-      const pickedColor = plate.getAttribute("data-color");
-      handleColorChoice(pickedColor, plate);
-    };
-  });
-
-  pickNewTargetColor();
+  pickNewBearTarget();
 }
 
-function pickNewTargetColor() {
-  const targetNameEl = document.getElementById("color-target-name");
-  const randomIndex = Math.floor(Math.random() * COLOR_ROUNDS.length);
-  currentColorTarget = COLOR_ROUNDS[randomIndex];
+function updateBearFullnessUI() {
+  const fill = document.getElementById("bear-tummy-fill");
+  const count = document.getElementById("bear-tummy-count");
+  if (fill) fill.style.width = `${(bearFullness / 3) * 100}%`;
+  if (count) count.textContent = `${bearFullness}/3 món`;
+}
 
-  if (targetNameEl) {
-    targetNameEl.textContent = currentColorTarget.name;
-    targetNameEl.className = `${currentColorTarget.textColor} underline font-black text-xl sm:text-2xl`;
+function pickNewBearTarget() {
+  const demandText = document.getElementById("bear-demand-text");
+  const container = document.getElementById("food-plates-container");
+  const pool = currentBearMode === "colors" ? FRUIT_ROUNDS : SHAPE_ROUNDS;
+
+  const randomIndex = Math.floor(Math.random() * pool.length);
+  currentTargetItem = pool[randomIndex];
+
+  if (demandText) {
+    if (currentBearMode === "colors") {
+      demandText.innerHTML = `Bé ơi, cho Gấu ăn quả màu <span class="${currentTargetItem.textColor} underline font-black text-xl sm:text-2xl">${currentTargetItem.name}</span> nhé!`;
+    } else {
+      demandText.innerHTML = `Bé ơi, cho Gấu ăn chiếc bánh hình <span class="${currentTargetItem.textColor} underline font-black text-xl sm:text-2xl">${currentTargetItem.name}</span> nhé!`;
+    }
   }
 
-  soundEngine.playVoice(currentColorTarget.audioFile, `Bé ơi, cho Gấu ăn ${currentColorTarget.fruit} màu ${currentColorTarget.name} nhé!`);
+  soundEngine.playVoice(currentTargetItem.audioFile, `Bé ơi, cho Gấu ăn ${currentTargetItem.label} nhé!`);
+
+  // Render food plates
+  if (container) {
+    const gridCols = currentBearMode === "colors" ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-4";
+    container.innerHTML = `
+      <div class="grid ${gridCols} gap-3 sm:gap-4 max-w-xl mx-auto">
+        ${pool.map(item => `
+          <div class="food-plate ${item.bgStyle} border-4 rounded-3xl p-3 sm:p-5 text-center cursor-pointer select-none transition transform hover:scale-105 active:scale-95 shadow-md" data-item-id="${item.id}">
+            <div class="text-4xl sm:text-5xl mb-1">${item.icon}</div>
+            <div class="font-display font-black text-xs sm:text-sm text-slate-800">${item.label}</div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+
+    container.querySelectorAll(".food-plate").forEach(plate => {
+      plate.onclick = () => {
+        soundEngine.init();
+        const pickedId = plate.getAttribute("data-item-id");
+        handleBearFeedingChoice(pickedId, plate);
+      };
+    });
+  }
 }
 
-function handleColorChoice(pickedColor, plateEl) {
+function handleBearFeedingChoice(pickedId, plateEl) {
   const bear = document.getElementById("bear-character");
   const bearMouth = document.getElementById("bear-mouth");
   const feedbackMsg = document.getElementById("color-feedback-msg");
 
-  if (pickedColor === currentColorTarget.id) {
+  if (pickedId === currentTargetItem.id) {
     // Correct!
     plateEl.classList.add("fruit-flying");
     setTimeout(() => plateEl.classList.remove("fruit-flying"), 650);
 
-    // Animate Bear eating
     if (bearMouth) {
-      bearMouth.setAttribute("d", "M 48 70 Q 60 90 72 70 Z"); // Open big mouth
+      bearMouth.setAttribute("d", "M 48 70 Q 60 90 72 70 Z");
       bearMouth.setAttribute("fill", "#78350F");
     }
     if (bear) bear.classList.add("bear-chewing");
@@ -876,46 +1187,170 @@ function handleColorChoice(pickedColor, plateEl) {
     setTimeout(() => {
       soundEngine.playCheer();
       if (bearMouth) {
-        bearMouth.setAttribute("d", "M 52 74 Q 60 80 68 74"); // Back to happy smile
+        bearMouth.setAttribute("d", "M 52 74 Q 60 80 68 74");
         bearMouth.setAttribute("fill", "none");
       }
       if (bear) bear.classList.remove("bear-chewing");
 
-      if (feedbackMsg) {
-        feedbackMsg.textContent = `🎉 Chóp chép! Ngon quá! Bé chọn đúng màu ${currentColorTarget.name} rồi!`;
-        feedbackMsg.classList.remove("opacity-0");
-        setTimeout(() => feedbackMsg.classList.add("opacity-0"), 2000);
+      bearFullness++;
+      updateBearFullnessUI();
+
+      if (bearFullness >= 3) {
+        // Tummy Full!
+        if (bear) bear.classList.add("bear-happy-pat");
+        setTimeout(() => bear && bear.classList.remove("bear-happy-pat"), 2500);
+
+        soundEngine.playVoice("audio/bear_full.mp3", "Ủ uôi no căng bụng rồi! Misa cảm ơn bé nhé!");
+        if (typeof confetti === "function") {
+          confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 } });
+        }
+        addBabyStars(3, true);
+
+        if (feedbackMsg) {
+          feedbackMsg.textContent = `🎉 Hoan hô! Bụng Gấu đã no tròn rồi! Bé thật chu đáo!`;
+          feedbackMsg.classList.remove("opacity-0");
+          setTimeout(() => feedbackMsg.classList.add("opacity-0"), 3000);
+        }
+
+        setTimeout(() => {
+          bearFullness = 0;
+          updateBearFullnessUI();
+          pickNewBearTarget();
+        }, 3600);
+
+      } else {
+        // Just 1 meal
+        addBabyStars(2, false);
+        soundEngine.playVoice("audio/bear_yummy.mp3", `Chóp chép! Ngon quá! Cảm ơn bé yêu!`);
+
+        if (feedbackMsg) {
+          feedbackMsg.textContent = `🎉 Chóp chép ngon quá! Cảm ơn bé đã cho Gấu ăn ${currentTargetItem.label}!`;
+          feedbackMsg.classList.remove("opacity-0");
+          setTimeout(() => feedbackMsg.classList.add("opacity-0"), 2000);
+        }
+
+        setTimeout(() => {
+          pickNewBearTarget();
+        }, 2500);
       }
 
-      soundEngine.playVoice("audio/bear_yummy.mp3", `Chóp chép! Ngon quá! Cảm ơn bé đã cho Gấu ăn quả màu ${currentColorTarget.name}!`);
     }, 600);
 
-    if (typeof confetti === "function") {
-      confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
-    }
-
-    addBabyStars(2, true);
-
-    // Pick next color after 2.6s
-    setTimeout(() => {
-      pickNewTargetColor();
-    }, 2600);
-
   } else {
-    // Incorrect
+    // Wrong
     soundEngine.playPop();
-    const pickedObj = COLOR_ROUNDS.find(c => c.id === pickedColor);
-    const pickedName = pickedObj ? pickedObj.name : "";
+    soundEngine.playVoice("audio/bear_wrong.mp3", "Chưa đúng rồi bé ơi! Bé chọn lại cho Gấu nhé!");
 
     if (feedbackMsg) {
-      feedbackMsg.textContent = `Đây là màu ${pickedName} rồi! Gấu đang thèm màu ${currentColorTarget.name} cơ!`;
+      feedbackMsg.textContent = `Gấu đang thèm ${currentTargetItem.label} cơ, bé chọn lại giúp Gấu nhé!`;
       feedbackMsg.classList.remove("opacity-0");
       setTimeout(() => feedbackMsg.classList.add("opacity-0"), 2200);
     }
-
-    soundEngine.playVoice("audio/bear_wrong.mp3", `Chưa đúng rồi bé ơi! Bé chọn lại cho Gấu nhé!`);
   }
 }
+
+// --- F. GAME 5 (NEW): MONTESSORI SHADOW SILHOUETTE MATCH ---
+const SHADOW_ITEMS = [
+  { id: "car", name: "Chiếc Ô Tô", icon: "🚗", color: "#EF4444", bg: "bg-red-50 border-red-300" },
+  { id: "duck", name: "Chú Vịt Vàng", icon: "🦆", color: "#FBBF24", bg: "bg-yellow-50 border-yellow-300" },
+  { id: "apple", name: "Quả Táo Đỏ", icon: "🍎", color: "#F43F5E", bg: "bg-rose-50 border-rose-300" },
+  { id: "star", name: "Ngôi Sao Vàng", icon: "⭐", color: "#EAB308", bg: "bg-amber-50 border-amber-300" }
+];
+
+let matchedShadows = new Set();
+
+function initShadowGame() {
+  const slotsContainer = document.getElementById("shadow-slots-container");
+  const toysContainer = document.getElementById("shadow-toys-container");
+  const resetBtn = document.getElementById("shadow-reset-btn");
+  const replayBtn = document.getElementById("shadow-replay-audio-btn");
+  const celebration = document.getElementById("shadow-celebration");
+
+  if (!slotsContainer || !toysContainer) return;
+
+  matchedShadows.clear();
+  if (celebration) celebration.classList.add("hidden");
+
+  // Render 4 silhouette drop slots
+  slotsContainer.innerHTML = SHADOW_ITEMS.map(item => `
+    <div class="shadow-slot" data-slot-id="${item.id}">
+      <div class="silhouette-mask text-5xl sm:text-6xl mb-1">${item.icon}</div>
+      <div class="text-[11px] font-bold text-slate-400">Bóng ${item.name}</div>
+    </div>
+  `).join("");
+
+  // Shuffle items for toys tray
+  const shuffled = [...SHADOW_ITEMS].sort(() => Math.random() - 0.5);
+
+  toysContainer.innerHTML = shuffled.map(item => `
+    <div class="shadow-toy-card ${item.bg} border-4 rounded-2xl p-3 sm:p-4 text-center shadow-md cursor-pointer select-none transition transform hover:scale-105 active:scale-95" data-toy-id="${item.id}">
+      <div class="text-4xl sm:text-5xl mb-1">${item.icon}</div>
+      <div class="font-display font-black text-xs sm:text-sm text-slate-800">${item.name}</div>
+      <div class="text-[10px] text-purple-600 font-bold mt-0.5">Bấm để ghép!</div>
+    </div>
+  `).join("");
+
+  // Tap or Click interaction
+  toysContainer.querySelectorAll(".shadow-toy-card").forEach(toyCard => {
+    toyCard.addEventListener("click", () => {
+      soundEngine.init();
+      const toyId = toyCard.getAttribute("data-toy-id");
+      if (matchedShadows.has(toyId)) return;
+
+      const targetSlot = slotsContainer.querySelector(`.shadow-slot[data-slot-id="${toyId}"]`);
+      if (targetSlot) {
+        snapToyIntoSlot(toyCard, targetSlot, toyId);
+      }
+    });
+  });
+
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      soundEngine.playPop();
+      initShadowGame();
+    };
+  }
+
+  if (replayBtn) {
+    replayBtn.onclick = () => {
+      soundEngine.playVoice("audio/shadow_intro.mp3", "Bé hãy ghép đồ vật vào đúng bóng đen nhé!");
+    };
+  }
+}
+
+function snapToyIntoSlot(toyCard, slotEl, toyId) {
+  matchedShadows.add(toyId);
+  soundEngine.playSnap();
+
+  // Hide toy card from bottom
+  toyCard.style.opacity = "0.2";
+  toyCard.style.pointerEvents = "none";
+
+  // Upgrade slot to colorful matched state
+  const item = SHADOW_ITEMS.find(i => i.id === toyId);
+  slotEl.classList.add("matched");
+  slotEl.innerHTML = `
+    <div class="shadow-toy-card snapped text-5xl sm:text-6xl mb-1">${item.icon}</div>
+    <div class="font-display font-black text-xs sm:text-sm text-emerald-700">Đã Khớp! ✓</div>
+  `;
+
+  soundEngine.playVoice("audio/shadow_match.mp3", "Đúng rồi! Bé giỏi quá!");
+  addBabyStars(1, false);
+
+  // Check if all 4 matched
+  if (matchedShadows.size === SHADOW_ITEMS.length) {
+    const celebration = document.getElementById("shadow-celebration");
+    if (celebration) celebration.classList.remove("hidden");
+
+    soundEngine.playCheer();
+    soundEngine.playVoice("audio/shadow_complete.mp3", "Hoan hô! Bé đã ghép đúng hết rồi! Bé thật thông minh!");
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 } });
+    }
+    addBabyStars(3, true);
+  }
+}
+
 
 // ========================================================
 // 3. MONTESSORI 50+ GAMES DIRECTORY & FILTERS
