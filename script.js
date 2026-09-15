@@ -236,107 +236,20 @@ class ToddlerAudioEngine {
     } catch (e) {}
   }
 
-  // Animal calls
+  // Animal calls (Natural Vietnamese onomatopoeia audio)
   playAnimalSound(type) {
     if (this.isMuted) return;
-    this.init();
-    if (!this.ctx) return;
-
-    const now = this.ctx.currentTime;
-    try {
-      if (type === "dog") {
-        // "Gâu gâu!"
-        [0, 0.22].forEach(delay => {
-          const t = now + delay;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "triangle";
-          osc.frequency.setValueAtTime(180, t);
-          osc.frequency.exponentialRampToValueAtTime(90, t + 0.15);
-          gain.gain.setValueAtTime(0.5, t);
-          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.16);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(t);
-          osc.stop(t + 0.18);
-        });
-      } else if (type === "cat") {
-        // "Meo meo"
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(380, now);
-        osc.frequency.exponentialRampToValueAtTime(560, now + 0.2);
-        osc.frequency.exponentialRampToValueAtTime(320, now + 0.55);
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.58);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.6);
-      } else if (type === "duck") {
-        // "Quạc quạc"
-        [0, 0.25].forEach(delay => {
-          const t = now + delay;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "sawtooth";
-          osc.frequency.setValueAtTime(260, t);
-          osc.frequency.exponentialRampToValueAtTime(190, t + 0.16);
-          gain.gain.setValueAtTime(0.35, t);
-          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.17);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(t);
-          osc.stop(t + 0.18);
-        });
-      } else if (type === "frog") {
-        // "Ộp ộp"
-        [0, 0.28].forEach(delay => {
-          const t = now + delay;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "square";
-          osc.frequency.setValueAtTime(110, t);
-          osc.frequency.exponentialRampToValueAtTime(75, t + 0.18);
-          gain.gain.setValueAtTime(0.3, t);
-          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.19);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(t);
-          osc.stop(t + 0.2);
-        });
-      } else if (type === "cow") {
-        // "Ùm bòooo"
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(130, now);
-        osc.frequency.exponentialRampToValueAtTime(105, now + 0.7);
-        gain.gain.setValueAtTime(0.35, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.8);
-      } else if (type === "rooster") {
-        // "Ò ó o o"
-        const notes = [280, 420, 520, 360];
-        notes.forEach((freq, idx) => {
-          const t = now + idx * 0.16;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "triangle";
-          osc.frequency.setValueAtTime(freq, t);
-          gain.gain.setValueAtTime(0.35, t);
-          gain.gain.exponentialRampToValueAtTime(0.01, t + 0.15);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(t);
-          osc.stop(t + 0.16);
-        });
-      }
-    } catch (e) {}
+    const cryMap = {
+      dog: "audio/sound_cry_dog.mp3",
+      cat: "audio/sound_cry_cat.mp3",
+      duck: "audio/sound_cry_duck.mp3",
+      frog: "audio/sound_cry_frog.mp3",
+      cow: "audio/sound_cry_cow.mp3",
+      rooster: "audio/sound_cry_rooster.mp3"
+    };
+    if (cryMap[type]) {
+      this.playVoice(cryMap[type], type);
+    }
   }
 
   // Munch sound for eating
@@ -775,12 +688,12 @@ function createPopSparkle(arena, x, y, symbol) {
 let currentAnimalMode = "free";
 let currentQuizAnimal = null;
 const ANIMALS_DATA = [
-  { id: "dog", name: "Chú Cún Con", soundName: "Gâu gâu", soundType: "dog", voiceFile: "audio/animal_dog.mp3", quizVoiceFile: "audio/quiz_dog.mp3" },
-  { id: "cat", name: "Bạn Mèo Con", soundName: "Meo meo", soundType: "cat", voiceFile: "audio/animal_cat.mp3", quizVoiceFile: "audio/quiz_cat.mp3" },
-  { id: "duck", name: "Chú Vịt Vàng", soundName: "Quạc quạc", soundType: "duck", voiceFile: "audio/animal_duck.mp3", quizVoiceFile: "audio/quiz_duck.mp3" },
-  { id: "frog", name: "Chú Ếch Cốm", soundName: "Ộp ộp", soundType: "frog", voiceFile: "audio/animal_frog.mp3", quizVoiceFile: "audio/quiz_frog.mp3" },
-  { id: "cow", name: "Bác Bò Sữa", soundName: "Ùm bòooo", soundType: "cow", voiceFile: "audio/animal_cow.mp3", quizVoiceFile: "audio/quiz_cow.mp3" },
-  { id: "rooster", name: "Chú Gà Trống", soundName: "Ò ó o o", soundType: "rooster", voiceFile: "audio/animal_rooster.mp3", quizVoiceFile: "audio/quiz_rooster.mp3" }
+  { id: "dog", name: "Chú Cún Con", soundName: "Gâu gâu", soundType: "dog", voiceFile: "audio/animal_dog.mp3", cryFile: "audio/sound_cry_dog.mp3", guessVoiceFile: "audio/sound_guess_dog.mp3" },
+  { id: "cat", name: "Bạn Mèo Con", soundName: "Meo meo", soundType: "cat", voiceFile: "audio/animal_cat.mp3", cryFile: "audio/sound_cry_cat.mp3", guessVoiceFile: "audio/sound_guess_cat.mp3" },
+  { id: "duck", name: "Chú Vịt Vàng", soundName: "Quạc quạc", soundType: "duck", voiceFile: "audio/animal_duck.mp3", cryFile: "audio/sound_cry_duck.mp3", guessVoiceFile: "audio/sound_guess_duck.mp3" },
+  { id: "frog", name: "Chú Ếch Cốm", soundName: "Ộp ộp", soundType: "frog", voiceFile: "audio/animal_frog.mp3", cryFile: "audio/sound_cry_frog.mp3", guessVoiceFile: "audio/sound_guess_frog.mp3" },
+  { id: "cow", name: "Bác Bò Sữa", soundName: "Ùm bòooo", soundType: "cow", voiceFile: "audio/animal_cow.mp3", cryFile: "audio/sound_cry_cow.mp3", guessVoiceFile: "audio/sound_guess_cow.mp3" },
+  { id: "rooster", name: "Chú Gà Trống", soundName: "Ò ó o o", soundType: "rooster", voiceFile: "audio/animal_rooster.mp3", cryFile: "audio/sound_cry_rooster.mp3", guessVoiceFile: "audio/sound_guess_rooster.mp3" }
 ];
 
 function initAnimalGame() {
@@ -809,18 +722,13 @@ function initAnimalGame() {
     // Close all doors first
     document.querySelectorAll(".barn-box").forEach(box => box.classList.remove("door-open"));
 
-    soundEngine.playVoice("audio/who_is_calling.mp3", "Đố bé biết tiếng ai đang gọi đấy? Hãy gõ cửa nhé!");
-    setTimeout(() => {
-      if (currentAnimalMode === "quiz") {
-        startNewAnimalQuiz();
-      }
-    }, 2800);
+    startNewAnimalQuiz();
   });
 
   if (replayBtn) {
     replayBtn.addEventListener("click", () => {
       if (currentQuizAnimal) {
-        soundEngine.playAnimalSound(currentQuizAnimal.soundType);
+        soundEngine.playVoice(currentQuizAnimal.guessVoiceFile, `Ai đang kêu ${currentQuizAnimal.soundName} thế nhỉ?`);
       }
     });
   }
@@ -833,26 +741,26 @@ function initAnimalGame() {
       const box = card.querySelector(".barn-box");
       if (!animal || !box) return;
 
-      // Knock sound and open door
+      // Knock sound and swing door open 3D
       soundEngine.playKnock();
       box.classList.add("door-open");
-
-      setTimeout(() => {
-        soundEngine.playAnimalSound(animal.soundType);
-      }, 350);
 
       if (currentAnimalMode === "free") {
         setTimeout(() => {
           soundEngine.playVoice(animal.voiceFile, `${animal.soundName}! ${animal.name}!`);
-        }, 700);
+        }, 350);
         addBabyStars(1, false);
       } else if (currentAnimalMode === "quiz") {
         if (animalId === currentQuizAnimal.id) {
           // Correct!
           setTimeout(() => {
+            soundEngine.playVoice(animal.voiceFile, `${animal.soundName}! ${animal.name}!`);
+          }, 350);
+
+          setTimeout(() => {
             soundEngine.playCheer();
             soundEngine.playVoice("audio/quiz_correct.mp3", "Đúng rồi! Bé giỏi quá!");
-          }, 700);
+          }, 1400);
 
           if (typeof confetti === "function") {
             confetti({ particleCount: 75, spread: 70, origin: { y: 0.6 } });
@@ -861,23 +769,25 @@ function initAnimalGame() {
 
           setTimeout(() => {
             if (currentAnimalMode === "quiz") {
-              // Close doors and start next round
               document.querySelectorAll(".barn-box").forEach(b => b.classList.remove("door-open"));
-              setTimeout(() => startNewAnimalQuiz(), 600);
+              setTimeout(() => startNewAnimalQuiz(), 700);
             }
-          }, 3200);
+          }, 3600);
         } else {
           // Wrong
           setTimeout(() => {
-            soundEngine.playVoice("audio/quiz_wrong.mp3", "Chưa đúng rồi! Bé thử lại lần nữa nhé!");
-          }, 700);
+            soundEngine.playVoice(animal.voiceFile, `${animal.soundName}! ${animal.name}!`);
+          }, 350);
 
-          // Close door after 1.8s so baby can try another door
+          setTimeout(() => {
+            soundEngine.playVoice("audio/quiz_wrong.mp3", "Chưa đúng rồi! Bé thử lại lần nữa nhé!");
+          }, 1400);
+
           setTimeout(() => {
             if (currentAnimalMode === "quiz") {
               box.classList.remove("door-open");
             }
-          }, 1800);
+          }, 2600);
         }
       }
     });
@@ -893,8 +803,8 @@ function startNewAnimalQuiz() {
     quizText.textContent = `Ai đang kêu "${currentQuizAnimal.soundName}" thế nhỉ? Bé hãy gõ cửa tìm bạn ấy nhé!`;
   }
 
-  // Play animal sound directly to test baby's hearing perception
-  soundEngine.playAnimalSound(currentQuizAnimal.soundType);
+  // Play real natural Vietnamese animal call question
+  soundEngine.playVoice(currentQuizAnimal.guessVoiceFile, `Ai đang kêu ${currentQuizAnimal.soundName} thế nhỉ?`);
 }
 
 // --- D. GAME 3: GUIDED RAINBOW XYLOPHONE & FIREFLY ENGINE ---
