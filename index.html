@@ -208,7 +208,7 @@
             </div>
             <div class="text-center">
               <div class="font-display font-black text-xs text-slate-900 leading-tight">Bong Bóng Nổ</div>
-              <div class="text-[10px] text-slate-500 font-semibold">Đếm số & Hộp quà dù</div>
+              <div class="text-[10px] text-slate-500 font-semibold">Từ vựng tiếng Việt & Chuỗi 20</div>
             </div>
           </button>
 
@@ -230,7 +230,7 @@
             </div>
             <div class="text-center">
               <div class="font-display font-black text-xs text-slate-900 leading-tight">Đàn & Trống Vui</div>
-              <div class="text-[10px] text-slate-500 font-semibold">Đom đóm & 3 bài hát</div>
+              <div class="text-[10px] text-slate-500 font-semibold">Đom đóm & 10 bài hát</div>
             </div>
           </button>
 
@@ -323,7 +323,7 @@
                 <span class="text-2xl">🎈</span>
                 <div>
                   <h3 class="font-display font-black text-base sm:text-lg text-slate-900">Trò Chơi 1: Bong Bóng Diệu Kỳ & Đếm Số 1-5</h3>
-                  <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Chạm nổ liên tiếp nghe đếm 1-5, săn Bóng Mẹ khổng lồ và Hộp Quà Dù Bay!</p>
+                  <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Chạm nổ bóng để học từ vựng tiếng Việt, chinh phục chuỗi 20 và kích nổ Bóng Sét siêu tốc!</p>
                 </div>
               </div>
 
@@ -336,13 +336,19 @@
                   <button id="bubble-theme-neon" class="bubble-theme-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:text-slate-900">✨ Dạ Quang</button>
                 </div>
 
-                <!-- Combo tracker -->
-                <div id="bubble-combo-tracker" class="flex items-center gap-1 bg-amber-50 border border-amber-300 px-2.5 py-1 rounded-xl shadow-xs">
-                  <span class="text-[11px] font-black text-slate-700">Chuỗi:</span>
-                  <div id="bubble-combo-stars" class="flex items-center gap-0.5 text-xs">
-                    <span class="opacity-30">⭐</span><span class="opacity-30">⭐</span><span class="opacity-30">⭐</span><span class="opacity-30">⭐</span><span class="opacity-30">⭐</span>
+                <!-- Combo 20 Milestone Tracker -->
+                <div id="bubble-combo-tracker" class="flex items-center gap-2 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-2xl shadow-xs">
+                  <span class="text-xs font-black text-slate-700 shrink-0">Chuỗi:</span>
+                  <div class="bubble-combo-progress-bar">
+                    <div id="bubble-combo-fill" class="bubble-combo-fill" style="width: 0%;"></div>
                   </div>
-                  <span id="bubble-combo-count" class="text-[11px] font-black text-orange-600 ml-0.5">0/5</span>
+                  <span id="bubble-combo-count" class="text-xs font-black text-orange-600 shrink-0">0/20</span>
+                  <div class="hidden sm:flex items-center gap-1 text-[10px]">
+                    <span class="milestone-badge bg-amber-200 text-amber-900" id="milestone-5">5⭐</span>
+                    <span class="milestone-badge bg-amber-200 text-amber-900" id="milestone-10">10⭐⭐</span>
+                    <span class="milestone-badge bg-amber-200 text-amber-900" id="milestone-15">15⭐⭐</span>
+                    <span class="milestone-badge bg-amber-200 text-amber-900" id="milestone-20">20🏆</span>
+                  </div>
                 </div>
 
                 <button id="spawn-more-bubbles-btn" class="px-3 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-xs shadow-md transition transform hover:scale-105">
@@ -361,7 +367,7 @@
                 <div class="text-center">
                   <span class="text-5xl animate-bounce block mb-2">👆</span>
                   <span class="font-display font-black text-sm sm:text-base text-slate-700 bg-white/90 px-4 py-2 rounded-full shadow-md">
-                    Chạm vào bóng để nổ BỐP & đếm số nhé!
+                    Chạm vào bóng để nghe đọc tên đồ vật & chinh phục chuỗi 20 nhé!
                   </span>
                 </div>
               </div>
@@ -429,7 +435,7 @@
                 <span class="text-2xl">🎵</span>
                 <div>
                   <h3 class="font-display font-black text-base sm:text-lg text-slate-900">Trò Chơi 3: Đàn Cầu Vồng & Bộ Trống Vui Nhộn</h3>
-                  <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Bé gõ theo chú Đom Đóm phát sáng để học 3 bài thiếu nhi, hoặc quẩy cùng bộ trống vui nhộn!</p>
+                  <p class="text-[11px] sm:text-xs text-slate-500 font-medium">Bé gõ theo chú Đom Đóm phát sáng để học 10 bài thiếu nhi kinh điển, hát karaoke cùng ba mẹ!</p>
                 </div>
               </div>
 
@@ -451,16 +457,59 @@
               </div>
             </div>
 
-            <!-- Song Selector Bar -->
-            <div id="xylo-song-bar" class="mb-3 p-2 rounded-2xl bg-sky-50 border border-sky-200 flex flex-wrap items-center justify-between gap-2">
-              <div class="flex items-center gap-1.5">
-                <span class="text-xs font-black text-sky-800">Chọn bài hát:</span>
-                <button class="xylo-song-choice active px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white shadow-xs" data-song="butterfly">🦋 Bướm Vàng</button>
-                <button class="xylo-song-choice px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-sky-800 border border-sky-200" data-song="duck">🦆 Một Con Vịt</button>
-                <button class="xylo-song-choice px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-sky-800 border border-sky-200" data-song="kindergarten">🎒 Cháu Lên Ba</button>
+            <!-- 10 Song Selector Carousel / Grid & Sing-Along Karaoke -->
+            <div id="xylo-song-bar" class="mb-3 p-3 rounded-2xl bg-sky-50 border border-sky-200 space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-black text-sky-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <i class="fa-solid fa-music text-sky-600"></i> Chọn 1 trong 10 bài hát bé yêu thích:
+                </span>
+                <span id="xylo-progress-badge" class="text-xs font-bold text-amber-800 bg-amber-100 border border-amber-300 px-3 py-0.5 rounded-full">
+                  Nốt nhạc: <span id="xylo-note-progress" class="font-black text-orange-600">0/20</span>
+                </span>
               </div>
-              <div id="firefly-status-text" class="text-xs font-bold text-amber-700 animate-pulse">
-                Bé gõ theo bạn Đom Đóm phát sáng nhé!
+
+              <!-- 10 Song Buttons Grid (2 rows of 5) -->
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5" id="xylo-songs-grid">
+                <button class="song-pill-btn active px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="butterfly">
+                  <span>🦋</span> <span class="truncate">Bướm Vàng</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="duck">
+                  <span>🦆</span> <span class="truncate">Một Con Vịt</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="kindergarten">
+                  <span>🎒</span> <span class="truncate">Cháu Lên Ba</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="broom">
+                  <span>🧹</span> <span class="truncate">Bé Quét Nhà</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="family">
+                  <span>👨‍👩‍👧</span> <span class="truncate">Cả Nhà Thương</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="bird">
+                  <span>🐦</span> <span class="truncate">Con Chim Non</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="chicks">
+                  <span>🐣</span> <span class="truncate">Đàn Gà Con</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="handgame">
+                  <span>🤲</span> <span class="truncate">Tập Tầm Vông</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="birthday">
+                  <span>🎂</span> <span class="truncate">Sinh Nhật</span>
+                </button>
+                <button class="song-pill-btn px-2.5 py-1.5 rounded-xl text-xs font-bold truncate flex items-center justify-center gap-1" data-song="star">
+                  <span>⭐</span> <span class="truncate">Sao Lấp Lánh</span>
+                </button>
+              </div>
+
+              <!-- Sing-along Karaoke Live Lyrics Banner -->
+              <div id="xylo-karaoke-box" class="p-2.5 text-center transition-all duration-300">
+                <div class="text-[10px] uppercase font-black text-amber-700 tracking-wider mb-1 flex items-center justify-center gap-1">
+                  <span>🎤 Hát Cùng Bé (Lời bài hát chạy theo từng nốt):</span>
+                </div>
+                <div id="xylo-karaoke-lyrics" class="font-display font-black text-sm sm:text-base text-slate-800 tracking-wide min-h-[30px] flex items-center justify-center flex-wrap gap-1">
+                  <!-- Dynamically highlighted lyric words -->
+                </div>
               </div>
             </div>
 
@@ -1880,6 +1929,6 @@
   </a>
 
   <!-- Scripts with cache buster -->
-  <script src="script.js?v=5.0"></script>
+  <script src="script.js?v=5.1"></script>
 </body>
 </html>

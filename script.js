@@ -682,43 +682,65 @@ function initPlayzone() {
   initBubbleGame();
 }
 
-// --- B. GAME 1: MAGIC BUBBLE POP, COUNTING (1-5) & PARACHUTE GIFTS ---
+// --- B. GAME 1: MAGIC BUBBLE POP (VOCABULARY SPEECH & CHAIN 20) ---
 let bubbleInterval = null;
 let bubbleComboCount = 0;
 let bubbleComboTimer = null;
 let bubbleSpawnCounter = 0;
 let currentBubbleTheme = "candy"; // "candy" | "ocean" | "neon"
 
-const BUBBLE_THEMES = {
-  candy: {
-    bgColors: [
-      "radial-gradient(circle at 35% 35%, #fbcfe8, #f43f5e)",
-      "radial-gradient(circle at 35% 35%, #fed7aa, #ea580c)",
-      "radial-gradient(circle at 35% 35%, #fef08a, #eab308)",
-      "radial-gradient(circle at 35% 35%, #ddd6fe, #7c3aed)",
-      "radial-gradient(circle at 35% 35%, #bbf7d0, #16a34a)"
-    ],
-    symbols: ["🍬", "🍭", "🧁", "🍩", "⭐", "🍓", "🍉", "🍒", "1", "2", "3"]
-  },
-  ocean: {
-    bgColors: [
-      "radial-gradient(circle at 35% 35%, #bae6fd, #0284c7)",
-      "radial-gradient(circle at 35% 35%, #a5f3fc, #0891b2)",
-      "radial-gradient(circle at 35% 35%, #99f6e4, #0d9488)",
-      "radial-gradient(circle at 35% 35%, #c7d2fe, #4f46e5)"
-    ],
-    symbols: ["🐠", "🐟", "🐬", "🦀", "🐙", "🐚", "⭐", "🌊", "1", "2", "3"]
-  },
-  neon: {
-    bgColors: [
-      "radial-gradient(circle at 35% 35%, #f43f5e, #881337)",
-      "radial-gradient(circle at 35% 35%, #22d3ee, #0e7490)",
-      "radial-gradient(circle at 35% 35%, #34d399, #065f46)",
-      "radial-gradient(circle at 35% 35%, #facc15, #854d0e)",
-      "radial-gradient(circle at 35% 35%, #c084fc, #581c87)"
-    ],
-    symbols: ["✨", "⚡", "🌟", "💫", "🔮", "💎", "⭐", "1", "2", "3"]
-  }
+const VOCABULARY_LIBRARY = {
+  candy: [
+    { id: "keo", name: "Kẹo", icon: "🍬", voice: "audio/vocab_keo.mp3" },
+    { id: "keomut", name: "Kẹo mút", icon: "🍭", voice: "audio/vocab_keomut.mp3" },
+    { id: "banhkem", name: "Bánh kem", icon: "🧁", voice: "audio/vocab_banhkem.mp3" },
+    { id: "duahau", name: "Dưa hấu", icon: "🍉", voice: "audio/vocab_duahau.mp3" },
+    { id: "tao", name: "Quả táo", icon: "🍎", voice: "audio/vocab_tao.mp3" },
+    { id: "chuoi", name: "Quả chuối", icon: "🍌", voice: "audio/vocab_chuoi.mp3" },
+    { id: "nho", name: "Quả nho", icon: "🍇", voice: "audio/vocab_nho.mp3" },
+    { id: "dau", name: "Quả dâu", icon: "🍓", voice: "audio/vocab_dau.mp3" }
+  ],
+  ocean: [
+    { id: "caheo", name: "Cá heo", icon: "🐬", voice: "audio/vocab_caheo.mp3" },
+    { id: "vit", name: "Vịt vàng", icon: "🦆", voice: "audio/vocab_vit.mp3" },
+    { id: "ech", name: "Ếch xanh", icon: "🐸", voice: "audio/vocab_ech.mp3" },
+    { id: "duahau", name: "Dưa hấu", icon: "🍉", voice: "audio/vocab_duahau.mp3" },
+    { id: "bong", name: "Quả bóng", icon: "⚽", voice: "audio/vocab_bong.mp3" },
+    { id: "sao", name: "Ngôi sao", icon: "⭐", voice: "audio/vocab_sao.mp3" }
+  ],
+  neon: [
+    { id: "oto", name: "Ô tô", icon: "🚗", voice: "audio/vocab_oto.mp3" },
+    { id: "maybay", name: "Máy bay", icon: "✈️", voice: "audio/vocab_maybay.mp3" },
+    { id: "tauhoa", name: "Tàu hỏa", icon: "🚂", voice: "audio/vocab_tauhoa.mp3" },
+    { id: "sao", name: "Ngôi sao", icon: "⭐", voice: "audio/vocab_sao.mp3" },
+    { id: "tim", name: "Trái tim", icon: "💖", voice: "audio/vocab_tim.mp3" },
+    { id: "meo", name: "Mèo con", icon: "🐱", voice: "audio/vocab_meo.mp3" },
+    { id: "cun", name: "Cún con", icon: "🐶", voice: "audio/vocab_cun.mp3" },
+    { id: "gau", name: "Gấu con", icon: "🐻", voice: "audio/vocab_gau.mp3" }
+  ]
+};
+
+const BUBBLE_THEME_GRADIENTS = {
+  candy: [
+    "radial-gradient(circle at 35% 35%, #fbcfe8, #f43f5e)",
+    "radial-gradient(circle at 35% 35%, #fed7aa, #ea580c)",
+    "radial-gradient(circle at 35% 35%, #fef08a, #eab308)",
+    "radial-gradient(circle at 35% 35%, #ddd6fe, #7c3aed)",
+    "radial-gradient(circle at 35% 35%, #bbf7d0, #16a34a)"
+  ],
+  ocean: [
+    "radial-gradient(circle at 35% 35%, #bae6fd, #0284c7)",
+    "radial-gradient(circle at 35% 35%, #a5f3fc, #0891b2)",
+    "radial-gradient(circle at 35% 35%, #99f6e4, #0d9488)",
+    "radial-gradient(circle at 35% 35%, #c7d2fe, #4f46e5)"
+  ],
+  neon: [
+    "radial-gradient(circle at 35% 35%, #f43f5e, #881337)",
+    "radial-gradient(circle at 35% 35%, #22d3ee, #0e7490)",
+    "radial-gradient(circle at 35% 35%, #34d399, #065f46)",
+    "radial-gradient(circle at 35% 35%, #facc15, #854d0e)",
+    "radial-gradient(circle at 35% 35%, #c084fc, #581c87)"
+  ]
 };
 
 function initBubbleGame() {
@@ -726,7 +748,6 @@ function initBubbleGame() {
   const arena = document.getElementById("bubble-sky-arena");
   const spawnBtn = document.getElementById("spawn-more-bubbles-btn");
 
-  // Theme buttons
   const candyBtn = document.getElementById("bubble-theme-candy");
   const oceanBtn = document.getElementById("bubble-theme-ocean");
   const neonBtn = document.getElementById("bubble-theme-neon");
@@ -773,20 +794,28 @@ function initBubbleGame() {
       }
     };
   }
+
+  updateBubbleComboUI();
 }
 
 function updateBubbleComboUI() {
   const countEl = document.getElementById("bubble-combo-count");
-  const starsEl = document.getElementById("bubble-combo-stars");
-  if (!countEl || !starsEl) return;
+  const fillEl = document.getElementById("bubble-combo-fill");
+  if (!countEl) return;
 
-  countEl.textContent = `${bubbleComboCount}/5`;
-  const starIcons = starsEl.querySelectorAll("span");
-  starIcons.forEach((star, idx) => {
-    if (idx < bubbleComboCount) {
-      star.className = "text-amber-500 scale-125 transition transform";
-    } else {
-      star.className = "opacity-30";
+  countEl.textContent = `${bubbleComboCount}/20`;
+  if (fillEl) {
+    fillEl.style.width = `${Math.min(100, (bubbleComboCount / 20) * 100)}%`;
+  }
+
+  [5, 10, 15, 20].forEach(m => {
+    const badge = document.getElementById(`milestone-${m}`);
+    if (badge) {
+      if (bubbleComboCount >= m) {
+        badge.classList.add("achieved");
+      } else {
+        badge.classList.remove("achieved");
+      }
     }
   });
 }
@@ -796,22 +825,34 @@ function triggerBubbleCombo() {
   if (bubbleComboTimer) clearTimeout(bubbleComboTimer);
   updateBubbleComboUI();
 
-  const countAudio = `audio/count_${bubbleComboCount}.mp3`;
-  soundEngine.playVoice(countAudio, `${bubbleComboCount}!`);
-
-  if (bubbleComboCount >= 5) {
-    if (typeof confetti === "function") {
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-    }
+  if (bubbleComboCount === 5) {
+    soundEngine.playVoice("audio/combo_5.mp3", "Bé giỏi lắm! Năm bóng rồi!");
+    addBabyStars(1, false);
+    if (typeof confetti === "function") confetti({ particleCount: 40, spread: 50, origin: { y: 0.6 } });
+  } else if (bubbleComboCount === 10) {
+    soundEngine.playVoice("audio/combo_10.mp3", "Bé siêu quá! Mười bóng rồi!");
     addBabyStars(2, false);
+    if (typeof confetti === "function") confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+  } else if (bubbleComboCount === 15) {
+    soundEngine.playVoice("audio/combo_15.mp3", "Tuyệt vời bé yêu! Mười lăm bóng!");
+    addBabyStars(2, false);
+    if (typeof confetti === "function") confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+  } else if (bubbleComboCount >= 20) {
+    soundEngine.playCheer();
+    soundEngine.playVoice("audio/combo_20.mp3", "Hoan hô! Bé đạt kỷ lục hai mươi bóng rồi! Xuất sắc!");
+    if (typeof confetti === "function") {
+      confetti({ particleCount: 120, spread: 90, origin: { y: 0.5 } });
+    }
+    addBabyStars(5, true);
     bubbleComboCount = 0;
-    setTimeout(() => updateBubbleComboUI(), 1200);
-  } else {
-    bubbleComboTimer = setTimeout(() => {
-      bubbleComboCount = 0;
-      updateBubbleComboUI();
-    }, 2800);
+    setTimeout(() => updateBubbleComboUI(), 1800);
+    return;
   }
+
+  bubbleComboTimer = setTimeout(() => {
+    bubbleComboCount = 0;
+    updateBubbleComboUI();
+  }, 4500);
 }
 
 function spawnParachuteSurprise(arena) {
@@ -843,32 +884,77 @@ function spawnParachuteSurprise(arena) {
   }, 11000);
 }
 
-function createBubble(container, arena, isInitial = false, isMother = false) {
+function triggerLightningZap(arena, originX, originY) {
+  const container = document.getElementById("bubbles-container");
+  if (!container) return;
+  const bubbles = Array.from(container.querySelectorAll(".game-bubble"));
+  const arenaRect = arena.getBoundingClientRect();
+
+  bubbles.forEach((b, idx) => {
+    const r = b.getBoundingClientRect();
+    const bx = r.left - arenaRect.left + r.width / 2;
+    const by = r.top - arenaRect.top + r.height / 2;
+    const dist = Math.hypot(bx - originX, by - originY);
+    if (dist < 180) {
+      setTimeout(() => {
+        if (b.parentElement) {
+          soundEngine.playPop();
+          createPopWordBadge(arena, bx, by, "⚡", "SẤM SÉT!");
+          b.remove();
+          triggerBubbleCombo();
+          addBabyStars(1, false);
+        }
+      }, (idx + 1) * 90);
+    }
+  });
+}
+
+function createBubble(container, arena, isInitial = false) {
   const bubble = document.createElement("div");
   bubble.className = "game-bubble";
 
   bubbleSpawnCounter++;
-  if (!isMother && bubbleSpawnCounter % 8 === 0) {
+  
+  let isMother = false;
+  let isLightning = false;
+  let isRainbow = false;
+
+  if (bubbleSpawnCounter % 15 === 0) {
     isMother = true;
+  } else if (bubbleSpawnCounter % 7 === 0) {
+    isLightning = true;
+  } else if (bubbleSpawnCounter % 11 === 0) {
+    isRainbow = true;
   }
-  if (bubbleSpawnCounter % 14 === 0) {
+
+  if (bubbleSpawnCounter % 18 === 0) {
     spawnParachuteSurprise(arena);
   }
 
-  const themeData = BUBBLE_THEMES[currentBubbleTheme] || BUBBLE_THEMES.candy;
-  let size = isMother ? 125 : Math.floor(75 + Math.random() * 30);
-  let color = isMother 
-    ? "radial-gradient(circle at 35% 35%, #fed7aa, #ec4899 50%, #8b5cf6 100%)"
-    : themeData.bgColors[Math.floor(Math.random() * themeData.bgColors.length)];
-  let symbol = isMother ? "👑" : themeData.symbols[Math.floor(Math.random() * themeData.symbols.length)];
-  let leftPercent = Math.floor(6 + Math.random() * 80);
+  const vocabPool = VOCABULARY_LIBRARY[currentBubbleTheme] || VOCABULARY_LIBRARY.candy;
+  const itemData = vocabPool[Math.floor(Math.random() * vocabPool.length)];
+  const gradients = BUBBLE_THEME_GRADIENTS[currentBubbleTheme] || BUBBLE_THEME_GRADIENTS.candy;
 
-  if (isMother) bubble.classList.add("mother-bubble");
+  let size = isMother ? 125 : Math.floor(75 + Math.random() * 30);
+  let color = gradients[Math.floor(Math.random() * gradients.length)];
+  let symbol = itemData.icon;
+
+  if (isMother) {
+    bubble.classList.add("mother-bubble");
+    color = "radial-gradient(circle at 35% 35%, #fed7aa, #ec4899 50%, #8b5cf6 100%)";
+    symbol = "👑";
+  } else if (isLightning) {
+    bubble.classList.add("lightning-bubble");
+    symbol = "⚡";
+  } else if (isRainbow) {
+    bubble.classList.add("rainbow-bubble");
+    symbol = "🌈";
+  }
 
   bubble.style.width = `${size}px`;
   bubble.style.height = `${size}px`;
   bubble.style.background = color;
-  bubble.style.left = `${leftPercent}%`;
+  bubble.style.left = `${Math.floor(6 + Math.random() * 80)}%`;
   bubble.style.fontSize = `${Math.floor(size * (isMother ? 0.45 : 0.38))}px`;
   bubble.innerHTML = `<span class="drop-shadow-sm text-white">${symbol}</span>`;
 
@@ -894,10 +980,19 @@ function createBubble(container, arena, isInitial = false, isMother = false) {
     const x = rect.left - arenaRect.left + rect.width / 2;
     const y = rect.top - arenaRect.top + rect.height / 2;
 
-    createPopSparkle(arena, x, y, symbol);
+    createPopWordBadge(arena, x, y, symbol, isMother ? "BÓNG MẸ!" : (isLightning ? "SÉT ĐÁNH!" : (isRainbow ? "CẦU VỒNG!" : itemData.name)));
     bubble.remove();
 
-    if (isMother) {
+    if (isLightning) {
+      soundEngine.playVoice("audio/special_lightning.mp3", "Tia chớp siêu tốc!");
+      triggerLightningZap(arena, x, y);
+      addBabyStars(2, true);
+    } else if (isRainbow) {
+      soundEngine.playVoice("audio/special_rainbow.mp3", "Cầu vồng kỳ diệu!");
+      soundEngine.playNeonChime(5);
+      if (typeof confetti === "function") confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+      addBabyStars(2, true);
+    } else if (isMother) {
       soundEngine.playVoice("audio/bubble_mother.mp3", "Bong bóng khổng lồ xuất hiện!");
       soundEngine.playCheer();
       addBabyStars(3, true);
@@ -905,6 +1000,7 @@ function createBubble(container, arena, isInitial = false, isMother = false) {
         setTimeout(() => createBabyBurstBubble(container, arena, x, y), i * 60);
       }
     } else {
+      soundEngine.playVoice(itemData.voice, itemData.name);
       triggerBubbleCombo();
       addBabyStars(1, false);
     }
@@ -927,8 +1023,8 @@ function createBabyBurstBubble(container, arena, startX, startY) {
   const mini = document.createElement("div");
   mini.className = "game-bubble";
   const size = 65;
-  const themeData = BUBBLE_THEMES[currentBubbleTheme] || BUBBLE_THEMES.candy;
-  const color = themeData.bgColors[Math.floor(Math.random() * themeData.bgColors.length)];
+  const gradients = BUBBLE_THEME_GRADIENTS[currentBubbleTheme] || BUBBLE_THEME_GRADIENTS.candy;
+  const color = gradients[Math.floor(Math.random() * gradients.length)];
 
   mini.style.width = `${size}px`;
   mini.style.height = `${size}px`;
@@ -943,7 +1039,7 @@ function createBabyBurstBubble(container, arena, startX, startY) {
     e.stopPropagation();
     e.preventDefault();
     soundEngine.playPop();
-    createPopSparkle(arena, parseFloat(mini.style.left) + 30, parseFloat(mini.style.top) + 30, "⭐");
+    createPopWordBadge(arena, parseFloat(mini.style.left) + 30, parseFloat(mini.style.top) + 30, "⭐", "LẤP LÁNH!");
     mini.remove();
     addBabyStars(1, false);
   };
@@ -952,20 +1048,19 @@ function createBabyBurstBubble(container, arena, startX, startY) {
   container.appendChild(mini);
 }
 
-function createPopSparkle(arena, x, y, symbol) {
+function createPopWordBadge(arena, x, y, icon, word) {
   const burst = document.createElement("div");
-  burst.className = "bubble-pop-burst font-display font-black text-amber-500 flex flex-col items-center justify-center";
-  burst.style.left = `${x - 40}px`;
-  burst.style.top = `${y - 40}px`;
-  burst.style.width = "80px";
-  burst.style.height = "80px";
+  burst.className = "bubble-pop-word";
+  burst.style.left = `${x}px`;
+  burst.style.top = `${y}px`;
   burst.innerHTML = `
-    <span class="text-2xl">${symbol}</span>
-    <span class="text-xs font-black bg-white/90 text-orange-600 px-2 py-0.5 rounded-full shadow-xs">BỐP! ✨</span>
+    <span class="text-3xl drop-shadow-md mb-0.5">${icon}</span>
+    <span class="font-display font-black text-xs sm:text-sm bg-white/95 text-orange-600 border-2 border-amber-300 px-2.5 py-0.5 rounded-full shadow-md whitespace-nowrap">${word.toUpperCase()}</span>
   `;
   arena.appendChild(burst);
-  setTimeout(() => burst.remove(), 420);
+  setTimeout(() => burst.remove(), 750);
 }
+
 
 // --- C. GAME 2: 3D BARN PEEK-A-BOO (FARM, SAFARI, OCEAN) ---
 let currentAnimalMode = "free";
@@ -1147,39 +1242,84 @@ function startNewAnimalQuiz() {
   soundEngine.playVoice(currentQuizAnimal.guessVoiceFile, `Ai đang kêu ${currentQuizAnimal.soundName} thế nhỉ?`);
 }
 
-// --- D. GAME 3: RAINBOW XYLOPHONE & DRUM KIT ---
+// --- D. GAME 3: RAINBOW XYLOPHONE & DRUM KIT (10 MASTER SONGS & KARAOKE) ---
 const SONGS_LIBRARY = {
   butterfly: {
     name: "Kìa Con Bướm Vàng",
     audio: "audio/song_complete.mp3",
-    notes: ["C4", "D4", "E4", "C4", "C4", "D4", "E4", "C4", "E4", "F4", "G4", "E4", "F4", "G4", "G4", "A4", "G4", "F4", "E4", "C4"]
+    notes: ["C4", "D4", "E4", "C4", "C4", "D4", "E4", "C4", "E4", "F4", "G4", "E4", "F4", "G4", "G4", "A4", "G4", "F4", "E4", "C4"],
+    lyrics: ["Kìa", "con", "bướm", "vàng,", "kìa", "con", "bướm", "vàng,", "xòe", "đôi", "cánh,", "xòe", "đôi", "cánh,", "bướm", "bướm", "bay", "lượn", "vòng", "quanh."]
   },
   duck: {
     name: "Một Con Vịt",
     audio: "audio/song_duck.mp3",
-    notes: ["G4", "G4", "E4", "E4", "G4", "A4", "G4", "E4", "F4", "F4", "D4", "D4", "F4", "G4", "F4", "D4", "C4"]
+    notes: ["G4", "G4", "E4", "E4", "G4", "A4", "G4", "E4", "F4", "F4", "D4", "D4", "F4", "G4", "F4", "D4", "C4"],
+    lyrics: ["Một", "con", "vịt", "xòe", "ra", "hai", "cái", "cánh,", "nó", "kêu", "rằng", "cáp", "cáp", "cạp", "cạp", "cạp", "cạp."]
   },
   kindergarten: {
     name: "Cháu Lên Ba",
     audio: "audio/song_kindergarten.mp3",
-    notes: ["C4", "C4", "D4", "E4", "E4", "G4", "E4", "D4", "C4", "D4", "E4", "D4", "C4"]
+    notes: ["C4", "C4", "D4", "E4", "E4", "G4", "E4", "D4", "C4", "D4", "E4", "D4", "C4"],
+    lyrics: ["Cháu", "lên", "ba", "cháu", "đi", "mẫu", "giáo,", "cô", "thương", "cháu", "vì", "không", "khóc", "nhè."]
+  },
+  broom: {
+    name: "Bé Quét Nhà",
+    audio: "audio/song_complete.mp3",
+    notes: ["C4", "E4", "G4", "G4", "E4", "G4", "A4", "G4", "E4", "D4", "C4"],
+    lyrics: ["Một", "sợi", "rơm", "vàng", "hai", "sợi", "vàng", "rơm,", "bà", "bện", "chổi", "to."]
+  },
+  family: {
+    name: "Cả Nhà Thương Nhau",
+    audio: "audio/song_complete.mp3",
+    notes: ["C4", "D4", "E4", "G4", "G4", "A4", "G4", "E4", "D4", "E4", "G4", "E4", "D4", "C4"],
+    lyrics: ["Ba", "thương", "con", "vì", "con", "giống", "mẹ,", "mẹ", "thương", "con", "vì", "con", "giống", "ba."]
+  },
+  bird: {
+    name: "Con Chim Non",
+    audio: "audio/song_complete.mp3",
+    notes: ["E4", "G4", "A4", "G4", "E4", "D4", "E4", "G4", "E4", "D4", "C4"],
+    lyrics: ["Bình", "minh", "lên", "có", "con", "chim", "non,", "hót", "véo", "von", "véo", "von."]
+  },
+  chicks: {
+    name: "Đàn Gà Con",
+    audio: "audio/song_complete.mp3",
+    notes: ["G4", "G4", "E4", "G4", "G4", "E4", "C4", "D4", "E4", "D4", "C4"],
+    lyrics: ["Trông", "xinh", "đẹp", "làm", "sao", "chiếc", "mỏ", "tí", "hon", "gà", "con."]
+  },
+  handgame: {
+    name: "Tập Tầm Vông",
+    audio: "audio/song_complete.mp3",
+    notes: ["C4", "E4", "G4", "E4", "D4", "F4", "D4", "C4", "E4", "G4", "A4", "G4"],
+    lyrics: ["Tập", "tầm", "vông", "tay", "không", "tay", "có,", "tập", "tầm", "vó", "tay", "có", "tay", "không."]
+  },
+  birthday: {
+    name: "Chúc Mừng Sinh Nhật",
+    audio: "audio/song_complete.mp3",
+    notes: ["C4", "C4", "D4", "C4", "F4", "E4", "C4", "C4", "D4", "C4", "G4", "F4", "C4", "C4", "C5", "A4", "F4", "E4", "D4"],
+    lyrics: ["Happy", "Birthday", "to", "you,", "Happy", "Birthday", "to", "you,", "Happy", "Birthday", "dear", "baby,", "Happy", "Birthday", "to", "you!"]
+  },
+  star: {
+    name: "Ngôi Sao Nhỏ Lấp Lánh",
+    audio: "audio/song_complete.mp3",
+    notes: ["C4", "C4", "G4", "G4", "A4", "A4", "G4", "F4", "F4", "E4", "E4", "D4", "D4", "C4"],
+    lyrics: ["Twinkle,", "twinkle,", "little", "star,", "how", "I", "wonder", "what", "you", "are!"]
   }
 };
 
 let currentSongKey = "butterfly";
 let fireflyStep = 0;
 let isFireflyActive = true;
+let isDemoPlaying = false;
 
 function initXylophoneGame() {
   const keys = document.querySelectorAll(".xylo-key");
   const demoBtn = document.getElementById("xylo-demo-song-btn");
   const fireflyBtn = document.getElementById("toggle-firefly-btn");
   const instBtns = document.querySelectorAll(".sound-mode-btn");
-  const songChoices = document.querySelectorAll(".xylo-song-choice");
+  const songPills = document.querySelectorAll(".song-pill-btn");
   const xyloRack = document.getElementById("xylo-keys-rack");
   const drumRack = document.getElementById("drum-kit-rack");
 
-  // Multi-Instrument switch
   instBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       instBtns.forEach(b => {
@@ -1206,23 +1346,18 @@ function initXylophoneGame() {
     });
   });
 
-  // Song choice buttons
-  songChoices.forEach(btn => {
+  songPills.forEach(btn => {
     btn.addEventListener("click", () => {
-      songChoices.forEach(b => {
-        b.classList.remove("active", "bg-sky-600", "text-white");
-        b.classList.add("bg-white", "text-sky-800");
-      });
-      btn.classList.add("active", "bg-sky-600", "text-white");
-      btn.classList.remove("bg-white", "text-sky-800");
+      songPills.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
       currentSongKey = btn.getAttribute("data-song");
       fireflyStep = 0;
       positionFireflyGuide();
+      renderKaraokeLyrics();
       soundEngine.playPop();
     });
   });
 
-  // Drum Pads click
   document.querySelectorAll(".drum-pad").forEach(pad => {
     pad.addEventListener("pointerdown", () => {
       soundEngine.init();
@@ -1238,7 +1373,6 @@ function initXylophoneGame() {
     });
   });
 
-  // Key press
   keys.forEach(key => {
     key.addEventListener("pointerdown", (e) => {
       e.preventDefault();
@@ -1263,11 +1397,12 @@ function initXylophoneGame() {
             soundEngine.playCheer();
             soundEngine.playVoice(songData.audio, "Bé đánh đàn hay tuyệt vời!");
             if (typeof confetti === "function") {
-              confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+              confetti({ particleCount: 90, spread: 85, origin: { y: 0.6 } });
             }
             addBabyStars(3, true);
           }
           positionFireflyGuide();
+          renderKaraokeLyrics();
         }
       }
     });
@@ -1280,25 +1415,41 @@ function initXylophoneGame() {
       isFireflyActive = !isFireflyActive;
       const guide = document.getElementById("firefly-guide");
       const btnText = document.getElementById("firefly-btn-text");
-      const statusText = document.getElementById("firefly-status-text");
 
       if (isFireflyActive) {
         if (guide) guide.classList.remove("hidden");
         if (btnText) btnText.textContent = "Tắt Đom Đóm";
-        if (statusText) statusText.textContent = "Bé gõ theo bạn Đom Đóm phát sáng nhé!";
         fireflyStep = 0;
         positionFireflyGuide();
+        renderKaraokeLyrics();
         soundEngine.playVoice("audio/firefly_guide.mp3", "Bé gõ theo bạn Đom Đóm phát sáng nhé!");
       } else {
         if (guide) guide.classList.add("hidden");
         document.querySelectorAll(".xylo-key").forEach(k => k.classList.remove("guided-target"));
         if (btnText) btnText.textContent = "Bật Đom Đóm";
-        if (statusText) statusText.textContent = "Chế độ gõ phím tự do theo sở thích của bé!";
       }
     };
   }
 
-  setTimeout(() => positionFireflyGuide(), 400);
+  setTimeout(() => {
+    positionFireflyGuide();
+    renderKaraokeLyrics();
+  }, 400);
+}
+
+function renderKaraokeLyrics() {
+  const lyricsContainer = document.getElementById("xylo-karaoke-lyrics");
+  const progressEl = document.getElementById("xylo-note-progress");
+  const songData = SONGS_LIBRARY[currentSongKey] || SONGS_LIBRARY.butterfly;
+  if (!lyricsContainer) return;
+
+  lyricsContainer.innerHTML = songData.lyrics.map((word, idx) => `
+    <span class="karaoke-word ${idx === fireflyStep ? 'active-word' : ''}" data-word-idx="${idx}">${word}</span>
+  `).join(" ");
+
+  if (progressEl) {
+    progressEl.textContent = `${Math.min(fireflyStep + 1, songData.notes.length)}/${songData.notes.length}`;
+  }
 }
 
 function positionFireflyGuide() {
@@ -1336,15 +1487,23 @@ function createMusicNoteSparkle(key) {
 }
 
 function playDemoSong() {
+  if (isDemoPlaying) return;
+  isDemoPlaying = true;
   soundEngine.init();
+
   const songData = SONGS_LIBRARY[currentSongKey] || SONGS_LIBRARY.butterfly;
   const noteFreqs = {
     C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23,
     G4: 392.00, A4: 440.00, B4: 493.88, C5: 523.25
   };
 
-  songData.notes.slice(0, 10).forEach((note, idx) => {
+  fireflyStep = 0;
+  songData.notes.forEach((note, idx) => {
     setTimeout(() => {
+      fireflyStep = idx;
+      positionFireflyGuide();
+      renderKaraokeLyrics();
+
       const key = document.querySelector(`.xylo-key[data-note="${note}"]`);
       if (key) {
         soundEngine.playInstrumentNote(noteFreqs[note] || 261.63);
@@ -1352,9 +1511,19 @@ function playDemoSong() {
         createMusicNoteSparkle(key);
         setTimeout(() => key.classList.remove("pressed"), 220);
       }
-    }, idx * 420);
+
+      if (idx === songData.notes.length - 1) {
+        setTimeout(() => {
+          isDemoPlaying = false;
+          soundEngine.playCheer();
+          if (typeof confetti === "function") confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+          addBabyStars(3, true);
+        }, 500);
+      }
+    }, idx * 430);
   });
 }
+
 
 // --- E. GAME 4: CHO GẤU MISA ĂN (COLORS, SHAPES, ICE CREAM & SIZES) ---
 let currentBearMode = "colors"; // "colors" | "shapes" | "icecream" | "sizes"
